@@ -12,6 +12,17 @@ require "gtk3"
 #Paràmetres de configuració del botó 
 @mis_boto = "Clear"
 
+#Paràmetres de configuració de login failed
+@missatge_error = "ERROR: UID not found"
+
+#Paràmetres de configuració login successful
+@missatge_benvinguda = "Welcome "
+
+def welcome_message(String name)
+    return @missatge_benvinguda + name
+end
+
+
 def get_window #Retorna objecte finestre
 	window = Gtk::Window.new(@titol_finestra)
 	window.border_width = @marge
