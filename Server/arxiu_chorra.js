@@ -1,1 +1,0 @@
-Arxiu chorra
