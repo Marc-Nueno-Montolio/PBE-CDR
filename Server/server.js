@@ -10,6 +10,7 @@ http.createServer(function (req, res) {
     res.end();
     console.log(req.url)
 
+
 }).listen(port, function() {
     console.log("El servidor esta escolatant al port" + port);
 });
