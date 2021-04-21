@@ -1,5 +1,7 @@
 require "gtk3"
 
+#
+
 #Paràmetres de configuració de finestra:
 @titol_finestra = "Lector RFID"
 @res_ample = 400
