@@ -1,16 +1,32 @@
+// Imports
 var http = require('http');
-var dbHelper = require('./dbHelper.js')
+var url = require('url')
+var parse = require('url-parse');
+var usersHandler = require('./handlers/usersHandler')
+
+
+// Conf options
 var port = 3000;
+
+var routes = {
+    '/students' : usersHandler
+}
+
+
 // Creem l'objecte servidor
 http.createServer(function (req, res) {
 
-    // response header 200 OK
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end();
-    console.log(req.url)
-    dbHelper.testDbConnection()
+    var route = routes[url.parse(req.url).pathname];
+    if(route)
+
+        route(req, res);
+    else{
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        res.write('La ruta solicitada no existeix')
+        res.end();
+    }
 
 
 }).listen(port, function() {
-    console.log("El servidor esta escolatant al port" + port);
+    console.log("El servidor esta escolatant al port: " + port);
 });

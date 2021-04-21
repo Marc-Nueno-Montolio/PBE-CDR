@@ -16,7 +16,7 @@ function findUserByUid(uid) {
         var query = {student_id: uid};
         db.db("pbe").collection("students").find(query).toArray(function(err, result) {
             if (err) throw err;
-            console.log(result);
+
             db.close();
 
         });
@@ -25,6 +25,7 @@ function findUserByUid(uid) {
 
 };
 
+console.log(findUserByUid('A677A214'))
 module.exports = {
     findUserByUid,
     testDbConnection
