@@ -1,12 +1,31 @@
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://138.68.163.210:27017";
+const url = "mongodb://138.68.163.210:27017";
+const options = {useUnifiedTopology: true}
 
-function testDbConnection(url) {
-    MongoClient.connect(url, { useUnifiedTopology: true } ,function (err, db) {
+function testDbConnection() {
+    MongoClient.connect(url, options, function (err, db) {
         if (err) throw err;
         console.log("Connected succesfully")
         db.close();
     });
 };
 
-export {testDbConnection}
+
+function findUserByUid(uid) {
+    MongoClient.connect(url, options, function(err, db) {
+        var query = {student_id: uid};
+        db.db("pbe").collection("students").find(query).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+
+        });
+    });
+
+
+};
+
+module.exports = {
+    findUserByUid,
+    testDbConnection
+}
