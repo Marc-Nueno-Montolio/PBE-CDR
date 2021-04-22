@@ -27,9 +27,6 @@ function findUserByUid(uid, callback) {
 };
 
 
-findUserByUid('A677A214', (err, student)=>{
-    console.log(student)
-})
 module.exports = {
     findUserByUid,
     testDbConnection
