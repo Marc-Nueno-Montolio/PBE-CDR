@@ -27,5 +27,5 @@ http.createServer(function (req, res) {
 
 
 }).listen(port, function () {
-    console.log("El servidor esta escolatant al port: " + port);
+    console.log("El servidor esta escoltant al port: " + port);
 });
