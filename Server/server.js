@@ -4,7 +4,6 @@ var url = require('url')
 var parse = require('url-parse');
 var usersHandler = require('./handlers/usersHandler')
 
-
 // Conf options
 var port = 3000;
 
@@ -21,7 +20,7 @@ http.createServer(function (req, res) {
         route(req, res);
     else {
         res.writeHead(404, {'Content-Type': 'text/html'});
-        res.write('La ruta solicitada no existeix')
+        res.write('Vaja... la ruta no existeix... Prova un dels 100 metodes diferents que et proposa el Francesc oller per solucionar aquest problema. ')
         res.end();
     }
 
