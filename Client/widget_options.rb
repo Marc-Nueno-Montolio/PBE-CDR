@@ -56,3 +56,8 @@ def get_button #Retorna objecte botó
 	button = Gtk::Button.new(:label => @mis_boto)
 	return button
 end
+
+def set_a_input_text_box #COnfigura la finestra per a introduir dades
+
+	return void
+end
