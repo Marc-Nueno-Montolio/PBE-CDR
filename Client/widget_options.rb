@@ -6,7 +6,7 @@ require "gtk3"
 @titol_finestra = "Lector RFID"
 @res_ample = 400
 @res_altura = 125
-@marge = 20
+@marge = 21
 
 #Paràmetres de configuració de 'label' (etiqueta de color)
 @missatge = "Please, login with your university card" 
