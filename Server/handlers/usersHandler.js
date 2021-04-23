@@ -15,7 +15,7 @@ var handler = (req, res) => {
                 }))
             } else {
                 res.writeHead(404, {'Content-Type': 'application/json'});
-                res.end("No existeix l'estudiant")
+                res.end(JSON.stringify({}));
             }
         })
 
