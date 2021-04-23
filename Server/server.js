@@ -4,6 +4,8 @@ var url = require('url')
 var parse = require('url-parse');
 var usersHandler = require('./handlers/usersHandler')
 var marksHandler = require('./handlers/marksHandler')
+var tasksHandler = require('./handlers/tasksHandler')
+var timetablesHandler = require('./handlers/timetablesHandler')
 
 // Opcions de configuració
 var port = 3000;
@@ -11,7 +13,9 @@ var port = 3000;
 // Cada ruta te el seu handler que procesa la petició
 var routes = {
     '/students': usersHandler,
-    '/marks': marksHandler
+    '/marks': marksHandler,
+    '/timetables': timetablesHandler,
+    '/tasks': tasksHandler
 }
 
 // Creem l'objecte servidor
