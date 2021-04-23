@@ -20,7 +20,7 @@ http.createServer(function (req, res) {
         route(req, res);
     else {
         res.writeHead(404, {'Content-Type': 'text/html'});
-        res.write('OK Vaja... la ruta no existeix... Prova un dels 100 metodes diferents que et proposa el Francesc oller per solucionar aquest problema. ')
+        res.write('Vaja... la ruta no existeix... Prova un dels 100 metodes diferents que et proposa el Francesc oller per solucionar aquest problema. ')
         res.end();
     }
 
