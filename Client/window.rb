@@ -50,9 +50,6 @@ class Set_Finestra
 	end
 
 	#Primer escenari
-	def welcome_message(name)
-		return @missatge_benvinguda + name
-	end
 
 	def go_first_escenario
 		@finestra.title = @titol_finestra += "LOGIN"
@@ -63,9 +60,19 @@ class Set_Finestra
 	def login_fail(uid)
 		@graella.remove(0)
 		@graella.attach(get_log_fail_label(uid),0,0,1,1)
-		@set_finestra.buttonA = get_button_logfailed
-		@graella.attach(@set_finestra.buttonA,0,1,1,1)
+		@buttonA = get_button_logfailed
+		@graella.attach(@buttonA,0,1,1,1)
 	end
+
+	#Segon escenari
+
+	def welcome_message(name)
+		return @missatge_benvinguda + name
+	end
+
+	def go_second_scenario(nom_user, uid)
+			wm = welcome_message(nom_user) + ", UID: " + uid
+			
 
 	def get_window #Retorna objecte finestre
 		window = Gtk::Window.new(@titol_finestra)

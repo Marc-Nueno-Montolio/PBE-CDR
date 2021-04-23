@@ -1,5 +1,7 @@
 require "gtk3"
 require_relative 'window.rb'
+require_relative 'cl_scon.rb'
+require_relative 'device.rb'
 
 
 scenario = 0;
@@ -11,17 +13,33 @@ scenario = 0;
     #2 Escenari B (Introducció dades per enviar a servidor. Si rep error, es mostrarà en aquest mateix estat. buttonA=enviar buttonB=logout
     #3 Escenari C (Mostra de dades rebudes per servidor. buttonA=Tornar escenari B buttonB=logout
 sf = Set_Finestra.new()
-
+dev = Device.new()
 sf.go_first_escenario
-
-
-
-
-
-
+sf.finestra.show_all
 
 
 #GESTIÓ SENYALS
+
+#Faltaria implementar device per gestionar signal de lector UID. Seria:
+#dev.signal_connect("read") ??String uid{
+#   case scenario
+#       when 0
+#           a,b = get_user(uid)
+#           if(a==null && b==null){
+#               scenario = 1
+#               sf.login_fail(uid)
+#           }else{
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
 sf.buttonA.signal_connect("clicked"){
     case scenario
         when 1
@@ -50,7 +68,7 @@ sf.buttonB.signal_connect("clicked"){
 
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
-
+Gtk.main
 
 
 
