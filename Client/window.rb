@@ -3,7 +3,7 @@ require_relative 'device.rb'
 require_relative 'widget_options.rb'
 
 
-set_finestra = Struct.new(:window, :grid, )
+
 window = get_window		#Finestra. Objecte gràfic que encapsula tots els objectes gràfics
 grid = get_grid			#Graella. Utilitat per organitzar objectes a la finestra
 info_label = get_label		#Etiqueta. Canvia de color i text segons estat de l'aplicació 
