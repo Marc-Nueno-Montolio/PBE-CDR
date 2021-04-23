@@ -6,7 +6,7 @@ require "gtk3"
 @titol_finestra = "Lector RFID"
 @res_ample = 400
 @res_altura = 125
-@marge = 20
+@marge = 21
 
 #Paràmetres de configuració de 'label' (etiqueta de color)
 @missatge = "Please, login with your university card" 
@@ -55,4 +55,9 @@ end
 def get_button #Retorna objecte botó 
 	button = Gtk::Button.new(:label => @mis_boto)
 	return button
+end
+
+def set_a_input_text_box #COnfigura la finestra per a introduir dades
+
+	return void
 end
