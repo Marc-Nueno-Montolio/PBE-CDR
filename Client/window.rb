@@ -17,53 +17,54 @@ class Set_Finestra
 
 		#Paràmetres de configuració de botons
 		@mis_boto = "Go back" #Botó finestra log-in failed
+		@mis_send = "Send" #Botó finestra query per a enviar string
+		@mis_logout_button = "Log-out" #Missatge botó logout
 
 		#Definim struct gràfic
 		@set_finestra = Struct.new(:window, :grid, :buttonA, :buttonB)
 		#Paràmetres de configuració login successful
 		@missatge_benvinguda = "Welcome "
+
+		#Creació objectes gràfics permanents
+		@finestra = get_window
+		@graella = get_grid
+		@buttonA = get_logfailed_button
+		@buttonB = get_logout_button
+		@finestra.add(@graella)
+
+
 	end
 		
 	#"Getters" de botons, per reaccionar a signals des de main
 	def buttonA
-		return @set_finestra.buttonA
+		return @buttonA
 	end
 
 	def buttonB
-		return @set_finestra.buttonB
+		return @buttonB
 	end
 
 	#Getter finestra per obtenir signal 'destroy'
 	def finestra
-		return @set_finestra.window
-	end
-
-	def get_set_init
-		@set_finestra.window = get_window
-		@set_finestra.grid = get_grid
-		go_first_escenario(set_finestra)
-	end
-
-	def get_set
-		return set_finestra
+		return @finestra
 	end
 
 	#Primer escenari
-	def welcome_message(String name)
+	def welcome_message(name)
 		return @missatge_benvinguda + name
 	end
 
-	def go_first_escenario(Struct estructura)
-		@set_finestra.window.title = @titol_finestra += "LOGIN"
-		@set_finestra.grid.remove(0)
-		@set_finestra.grid.attach(get_login_label,0,0,1,1)
+	def go_first_escenario
+		@finestra.title = @titol_finestra += "LOGIN"
+		@graella.remove_column(0)
+		@graella.attach(get_login_label,0,0,1,1)
 	end
 
-	def login_fail(String uid)
-		@set_finestra.grid.remove(0)
-		@set_finestra.grid.attach(get_log_fail_label(uid),0,0,1,1)
+	def login_fail(uid)
+		@graella.remove(0)
+		@graella.attach(get_log_fail_label(uid),0,0,1,1)
 		@set_finestra.buttonA = get_button_logfailed
-		@set_finestra.grid.attach(@set_finestra.buttonA,0,1,1,1)
+		@graella.attach(@set_finestra.buttonA,0,1,1,1)
 	end
 
 	def get_window #Retorna objecte finestre
@@ -76,8 +77,7 @@ class Set_Finestra
 
 
 	def get_grid #Retorna objecte graella
-		grid = Gtk::Grid.new
-		return grid
+		return Gtk::Grid.new
 	end
 
 	def get_login_label #Retorna objecte etiqueta
@@ -88,7 +88,7 @@ class Set_Finestra
 		return label
 	end
 
-	def get_log_fail_label(String uid)
+	def get_log_fail_label(uid)
 		label = Gtk::Label.new(@missatge_error_1 + uid + @missatge_error_2)
 		label.set_size_request(@res_ample - @marge, @res_altura - @marge)
 		label.override_background_color(0, Gdk::RGBA::new(1,0,0,1)) #Fons vermell
@@ -96,35 +96,21 @@ class Set_Finestra
 		return label
 	end
 
-	def get_button_logfailed #Retorna objecte botó 
+	def get_logfailed_button
 		button = Gtk::Button.new(:label => @mis_boto)
 		return button
 	end
 
-	def put_a_input_text_box (Struct estructura) #Configura la finestra per a introduir dades
+	def get_logout_button
+		button = Gtk::Button.new(:label => @mis_logout_button)
+		return button
+	end
+
+	def put_a_input_text_box
 		#set_finestra.
 		#return void
+		return void
 	end
 end
-
-
-require 'gtk3'
-require_relative 'device.rb'
-require_relative 'widget_options.rb'
-
-
-
-window = get_window		#Finestra. Objecte gràfic que encapsula tots els objectes gràfics
-grid = get_grid			#Graella. Utilitat per organitzar objectes a la finestra
-info_label = get_label		#Etiqueta. Canvia de color i text segons estat de l'aplicació 
-clear_button = get_button	#Botó 'clear' (per tornar a llegir RFID)
-
-clear_button.signal_connect("clicked") do #Actuació en cas de accionar botó
-    reset_label(info_label)                 #Reestabliment blau i missatge
-    scan_tag(rf, info_label)                
-  end
-
-  
-window.signal_connect('destroy') { Gtk.main_quit } 
 
 
