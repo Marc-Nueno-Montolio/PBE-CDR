@@ -8,24 +8,13 @@ var express = require('express'),
 app.use(bodyParser.json());
 
 app.post('/deploy', function (req, res) {
-
-    exec("git pull", (error, output) => {
+    exec("cd /home/pbe/PBE-CDR/ ; git pull; pm2 restart /home/pbe/PBE-CDR/Server/server.js", (error, output) => {
         if (error) {
             return;
         }
-        console.log(output);
-
-        exec("pm2 restart /home/pbe/PBE-CDR/Server/server.js", (error, output) => {
-            if (error) {
-                return;
-            }
-            console.log(output);
-        });
-
+        console.log(output)
     });
-
-
-    res.end();
+    res.end('Deploying...');
 });
 
 var server = app.listen(port, function () {
