@@ -55,13 +55,15 @@ class Set_Finestra
 		@finestra.title = @titol_finestra += "LOGIN"
 		@graella.remove_column(0)
 		@graella.attach(get_login_label,0,0,1,1)
+		@finestra.show_all
 	end
 
 	def login_fail(uid)
-		@graella.remove(0)
+		@graella.remove_column(0)
 		@graella.attach(get_log_fail_label(uid),0,0,1,1)
-		@buttonA = get_button_logfailed
+		@buttonA = get_logfailed_button
 		@graella.attach(@buttonA,0,1,1,1)
+		@finestra.show_all
 	end
 
 	#Segon escenari

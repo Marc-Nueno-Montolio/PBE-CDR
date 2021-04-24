@@ -22,11 +22,25 @@ sf.finestra.show_all
 #GESTIÓ SENYALS
 
 
+#dev.get_gs.signal_connect("uid_read"){
+#    puts "I caught an UID"
+#}
+
+#Faltaria implementar device per gestionar signal de lector UID. Ús temporal fsg:
 dev.get_gs.signal_connect("uid_read"){
-    puts "I caught an UID"
+    if(scenario==0)
+        nom, uid_del_nom = get_user("#{dev.get_uid_caught}")
+        if(nom==nil && uid_del_nom==nil)
+               scenario = 1
+               sf.login_fail("#{dev.get_uid_caught}")
+        end
+        else
+               scenario = 2
+               sf.go_second_scenario(nom,uid_del_nom)
+        end
+    #puts "I caught an UID. It is: " + dev.get_uid_caught
 }
-#Faltaria implementar device per gestionar signal de lector UID. Seria:
-#dev.signal_connect("read") ??String uid{
+
 #       if (scenario==0)       
 #           nom,uid_del_nom = get_user(uid)
 #           if(nom==null && uid_del_nom==null){
@@ -48,6 +62,7 @@ dev.get_gs.signal_connect("uid_read"){
 sf.buttonA.signal_connect("clicked"){
     case scenario
         when 1
+            puts "buttonA catched. Changing to scenario 0A" #debugging 
             scenario = 0
             sf.go_first_escenario
         when 2

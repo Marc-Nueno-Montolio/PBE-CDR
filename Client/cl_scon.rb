@@ -14,7 +14,7 @@ def get_user(uid) #Retorna el nom i uid si la uid esta mal retorna null
 
     else
         puts("No existeix l'estudiant")
-        return null, null
+        return nil, nil
 
     end
 

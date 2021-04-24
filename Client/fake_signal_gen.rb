@@ -3,10 +3,12 @@ require "gtk3"
 class Device 
 
     def initialize 
+        @uid_caught = ""
         @gs = Gen_Signal.new()
         thr = Thread.new{
             while(1)
                 str = gets
+                @uid_caught = str
                 @gs.senyal(str)
             end
         }
@@ -14,6 +16,10 @@ class Device
 
     def get_gs
         return @gs
+    end
+
+    def get_uid_caught
+        return @uid_caught
     end
 end
 
@@ -35,7 +41,7 @@ class Gen_Signal < Gtk::Widget
     end
 
     def signal_do_uid_read(str)
-        return str
+        @uid_caught = str
     end
 
 end
