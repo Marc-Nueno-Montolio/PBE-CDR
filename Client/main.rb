@@ -35,6 +35,7 @@ dev.get_gs.signal_connect("uid_read"){
                sf.login_fail("#{dev.get_uid_caught}")
         end
         else
+               puts "Valid UID Inserted. Changing to scenario 2A" #debugging 
                scenario = 2
                sf.go_second_scenario(nom,uid_del_nom)
         end

@@ -28,6 +28,7 @@ class Set_Finestra
 		#Creació objectes gràfics permanents
 		@finestra = get_window
 		@graella = get_grid
+		@label_log = get_login_label
 		@buttonA = get_logfailed_button
 		@buttonB = get_logout_button
 		@finestra.add(@graella)
@@ -52,16 +53,18 @@ class Set_Finestra
 	#Primer escenari
 
 	def go_first_escenario
-		@finestra.title = @titol_finestra += "LOGIN"
-		@graella.remove_column(0)
-		@graella.attach(get_login_label,0,0,1,1)
+		@finestra.title = "#{@titol_finestra} LOGIN"
+		#@graella.remove_column(0)
+		@graella.remove_row(1)
+		login_label_reading_status
+		@graella.attach(@label_log,0,0,1,1)
 		@finestra.show_all
 	end
 
 	def login_fail(uid)
-		@graella.remove_column(0)
-		@graella.attach(get_log_fail_label(uid),0,0,1,1)
-		@buttonA = get_logfailed_button
+		login_label_fail_status(uid)
+		#@graella.remove_column(0)
+		#@graella.attach(get_log_fail_label(uid),0,0,1,1)
 		@graella.attach(@buttonA,0,1,1,1)
 		@finestra.show_all
 	end
@@ -73,8 +76,11 @@ class Set_Finestra
 	end
 
 	def go_second_scenario(nom_user, uid)
-		@finestra.title = @titol_finestra += "LOGGED"
+		@finestra.title = "#{@titol_finestra} LOGGED"
 		label_wm = get_logged_label(nom_user, uid)
+		@graella.remove_column(0)
+		@graella.attach(label_wm,0,0,1,1)
+		@finestra.show_all
 	end
 			
 
@@ -91,25 +97,43 @@ class Set_Finestra
 		return Gtk::Grid.new
 	end
 
+	#def get_login_label #Retorna objecte etiqueta
+	#	label = Gtk::Label.new(@missatge)
+	#	label.set_size_request(@res_ample - @marge, @res_altura - @marge)
+	#	label.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
+	#	label.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
+	#	return label
+	#end
+
 	def get_login_label #Retorna objecte etiqueta
-		label = Gtk::Label.new(@missatge)
+		label = Gtk::Label.new("")
 		label.set_size_request(@res_ample - @marge, @res_altura - @marge)
-		label.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
-		label.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
 		return label
 	end
+
+	def login_label_reading_status
+		@label_log.text = @missatge
+		@label_log.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
+		@label_log.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
+	end
+
+	def login_label_fail_status(uid)
+		@label_log.override_background_color(0, Gdk::RGBA::new(1,0,0,1))      #VERMELL
+		@label_log.text = "#{@missatge_error_1} #{uid} #{@missatge_error_2})" 
+	end
+	#def get_log_fail_label(uid)
+	#	label = Gtk::Label.new(@missatge_error_1 + uid + @missatge_error_2)
+	#	label.set_size_request(@res_ample - @marge, @res_altura - @marge)
+	#	label.override_background_color(0, Gdk::RGBA::new(1,0,0,1)) #Fons vermell
+	#	label.override_color(0, Gdk::RGBA::new(1,1,1,1)) #Lletra blanca
+	#	return label
+	#end
 
 	def get_logged_label(nom, uid_nom)
 		return Gtk::Label.new(welcome_message(nom,uid_nom))
 	end
 
-	def get_log_fail_label(uid)
-		label = Gtk::Label.new(@missatge_error_1 + uid + @missatge_error_2)
-		label.set_size_request(@res_ample - @marge, @res_altura - @marge)
-		label.override_background_color(0, Gdk::RGBA::new(1,0,0,1)) #Fons vermell
-		label.override_background_color(0, Gdk::RGBA::new(1,0,0,1)) #Lletra blanca
-		return label
-	end
+	
 
 	def get_logfailed_button
 		button = Gtk::Button.new(:label => @mis_boto)
