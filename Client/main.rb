@@ -23,7 +23,7 @@ sf.finestra.show_all
 
 
 dev.get_gs.signal_connect("uid_read"){
-
+    puts "I caught an UID"
 }
 #Faltaria implementar device per gestionar signal de lector UID. Seria:
 #dev.signal_connect("read") ??String uid{

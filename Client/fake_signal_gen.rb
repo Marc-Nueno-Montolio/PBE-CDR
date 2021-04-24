@@ -5,8 +5,10 @@ class Device
     def initialize 
         @gs = Gen_Signal.new()
         thr = Thread.new{
-            str = gets
-            @gs.senyal(str)
+            while(1)
+                str = gets
+                @gs.senyal(str)
+            end
         }
     end
 
