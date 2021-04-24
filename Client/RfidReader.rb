@@ -23,11 +23,16 @@ class RfidReader < Glib::Object
     #start reading thread
         Thread.new do 
             uid = @rfid.read_uid
-            tag.signal_emit('On_tag')
+            tag.signal_emit('tag')
             #emit 'tag' signal on behalf of main thread
         end
     end
 end
 
-rfid1 = RfidReader.new () #falta passar-li per parametre el rfid que es vulgui utilitzar
-rfid1.read_uid
+
+#if  __FILE__== $0
+#    rfid1 = RfidReader.new () #falta passar-li per parametre el rfid.new que es vulgui utilitzar
+#    aquí aniria tot el tema de la finestra relacionada amb rfid
+#    rfid1.signal_connect('tag', &win.method(:on_tag)) connexió senyal-finestra
+#    ... etc
+#end
