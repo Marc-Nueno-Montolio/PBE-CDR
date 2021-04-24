@@ -21,6 +21,10 @@ sf.finestra.show_all
 
 #GESTIÓ SENYALS
 
+
+dev.get_gs.signal_connect("uid_read"){
+
+}
 #Faltaria implementar device per gestionar signal de lector UID. Seria:
 #dev.signal_connect("read") ??String uid{
 #       if (scenario==0)       
