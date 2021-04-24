@@ -66,18 +66,20 @@ class Set_Finestra
 
 	#Segon escenari
 
-	def welcome_message(name)
-		return @missatge_benvinguda + name
+	def welcome_message(name, uid)
+		return @missatge_benvinguda + name +", UID: " + uid
 	end
 
 	def go_second_scenario(nom_user, uid)
-			wm = welcome_message(nom_user) + ", UID: " + uid
+		@finestra.title = @titol_finestra += "LOGGED"
+		label_wm = get_logged_label(nom_user, uid)
+	end
 			
 
 	def get_window #Retorna objecte finestre
-		window = Gtk::Window.new(@titol_finestra)
+		window = Gtk::Window.new("") #@titol_finestra
 		window.border_width = @marge
-		window.title = @titol_finestra
+		#window.title = @titol_finestra
 		window.set_default_size @res_ample, @res_altura
 		return window
 	end
@@ -93,6 +95,10 @@ class Set_Finestra
 		label.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
 		label.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
 		return label
+	end
+
+	def get_logged_label(nom, uid_nom)
+		return Gtk::Label.new(welcome_message(nom,uid_nom))
 	end
 
 	def get_log_fail_label(uid)

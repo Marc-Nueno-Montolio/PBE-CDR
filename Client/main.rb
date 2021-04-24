@@ -1,7 +1,8 @@
 require "gtk3"
 require_relative 'window.rb'
 require_relative 'cl_scon.rb'
-require_relative 'device.rb'
+#require_relative 'device.rb'    NO IMPLEMENTAT ENCARA
+require_relative 'fake_signal_gen.rb' #Dummy dev class
 
 
 scenario = 0;
@@ -22,16 +23,16 @@ sf.finestra.show_all
 
 #Faltaria implementar device per gestionar signal de lector UID. Seria:
 #dev.signal_connect("read") ??String uid{
-#   case scenario
-#       when 0
-#           a,b = get_user(uid)
-#           if(a==null && b==null){
+#       if (scenario==0)       
+#           nom,uid_del_nom = get_user(uid)
+#           if(nom==null && uid_del_nom==null){
 #               scenario = 1
 #               sf.login_fail(uid)
 #           }else{
-#
-#
-#
+#               scenario = 2
+#               sf.go_second_scenario(nom,uid_del_nom)
+#       end
+#}
 #
 #
 #
