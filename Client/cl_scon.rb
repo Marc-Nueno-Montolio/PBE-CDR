@@ -41,4 +41,4 @@ def get_user_async(uid, handler)
 end
 
 
-puts(get_user("A677A214"))
+#puts(get_user("A677A214"))  Ignasi: L'he comentat perquè dona confusions de cara a debug part gràfica.
