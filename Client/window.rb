@@ -55,7 +55,7 @@ class Set_Finestra
 	def go_first_escenario
 		@finestra.title = "#{@titol_finestra} LOGIN"
 		#@graella.remove_column(0)
-		@graella.remove_row(1)
+		@graella.remove_row(1)                       #Eliminem botó Go Back si venim de log failed
 		login_label_reading_status
 		@graella.attach(@label_log,0,0,1,1)
 		@finestra.show_all
@@ -119,21 +119,12 @@ class Set_Finestra
 
 	def login_label_fail_status(uid)
 		@label_log.override_background_color(0, Gdk::RGBA::new(1,0,0,1))      #VERMELL
-		@label_log.text = "#{@missatge_error_1} #{uid} #{@missatge_error_2})" 
+		@label_log.text = "#{@missatge_error_1} #{uid} #{@missatge_error_2}" 
 	end
-	#def get_log_fail_label(uid)
-	#	label = Gtk::Label.new(@missatge_error_1 + uid + @missatge_error_2)
-	#	label.set_size_request(@res_ample - @marge, @res_altura - @marge)
-	#	label.override_background_color(0, Gdk::RGBA::new(1,0,0,1)) #Fons vermell
-	#	label.override_color(0, Gdk::RGBA::new(1,1,1,1)) #Lletra blanca
-	#	return label
-	#end
 
 	def get_logged_label(nom, uid_nom)
 		return Gtk::Label.new(welcome_message(nom,uid_nom))
 	end
-
-	
 
 	def get_logfailed_button
 		button = Gtk::Button.new(:label => @mis_boto)
@@ -148,7 +139,7 @@ class Set_Finestra
 	def put_a_input_text_box
 		#set_finestra.
 		#return void
-		return void
+		return void #Not implemented yet.
 	end
 end
 
