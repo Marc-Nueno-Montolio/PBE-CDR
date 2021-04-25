@@ -34,7 +34,7 @@ class Set_Finestra
 		@buttonB = get_logout_button     #Fixe. No es modificarà.
 		@buttonC = get_send_button      #Botó per enviar dades
 		@eyq_label = get_eyq_label
-		@dummyspace = get_dummy_space
+		@input_box = get_a_input_text_box
 		@finestra.add(@graella)
 
 
@@ -51,6 +51,10 @@ class Set_Finestra
 
 	def buttonC
 		return @buttonC
+	end
+
+	def input_box
+		return @input_box
 	end
 
 	#Getter finestra per obtenir signal 'destroy'
@@ -88,14 +92,13 @@ class Set_Finestra
 		@finestra.title = "#{@titol_finestra} LOGGED"
 		label_wm = get_logged_label(nom_user, uid)
 		clean_grid
-		box = get_a_input_text_box
 		#@finestra.set_default_size @res_ample+100, @res_altura
 		@graella.attach(label_wm,0,0,1,1)
 		@graella.attach(gu_dummy_space,1,0,1,1)
 		@graella.attach(@buttonB,2,0,1,1)
 		@graella.attach(gu_dummy_space,0,1,1,1)
 		@graella.attach(@eyq_label,0,2,1,1)
-		@graella.attach(box,0,3,1,1)
+		@graella.attach(@input_box,0,3,1,1)
 		@graella.attach(gu_dummy_space,1,3,1,1)
 		@graella.attach(@buttonC,2,3,1,1)
 		@finestra.show_all
@@ -113,6 +116,7 @@ class Set_Finestra
 	def get_window #Retorna objecte finestre
 		window = Gtk::Window.new("") #@titol_finestra
 		window.border_width = @marge
+		window.set_window_position(:center)
 		#window.title = @titol_finestra
 		#window.set_default_size @res_ample, @res_altura
 		return window

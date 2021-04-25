@@ -88,6 +88,9 @@ sf.buttonB.signal_connect("clicked"){
     end
 }
 
+sf.buttonC.signal_connect("clicked"){
+    puts "Sending query: " + sf.input_box.text
+}
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
 Gtk.main
