@@ -7,8 +7,8 @@ class RfidReader < GLib::Object
 
   def initialize
     super
-    thr = Thread.new{
-      while(1)
+    thr = Thread.new {
+      while (1)
         str = gets
         signal_emit('tag', str)
       end
@@ -21,19 +21,14 @@ class RfidReader < GLib::Object
   end
 end
 
-
 if __FILE__ == $0
   reader = RfidReader.new()
 
-  reader.signal_connect("tag") {
+  reader.signal_connect("tag") do |str|
     puts str
-  }
+  end
 
-
-
-
-      Gtk.main
-
+  Gtk.main
 
 end
 
