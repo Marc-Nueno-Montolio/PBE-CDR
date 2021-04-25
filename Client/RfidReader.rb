@@ -15,11 +15,11 @@ class RfidReader < GLib::Object
       @rfid = ReaderEmulator.new
     end
 
-    GLib::Idle.add do
+    thr = Thread.new{
       while(1)
         read_uid(@rfid)
       end
-    end
+    }
 
     def read_uid(rfid)
       uid = rfid.read_uid
