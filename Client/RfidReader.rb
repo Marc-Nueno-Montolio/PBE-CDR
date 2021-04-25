@@ -2,10 +2,7 @@ require 'gtk3'
 
 require_relative 'readers/pn532' #Nueno
 
-class RfidReader < GLib::Object
-    type_register
-    define_signal("tag", GLib::Signal::RUN_FIRST, nil, nil, String)
-
+class RfidReader
     def initialize (rfid_hardware, display_hardware)
         super()
         case rfid_hardware
@@ -14,7 +11,6 @@ class RfidReader < GLib::Object
         when nil
             @rfid = nil
         end
-        GLib::Idle.add{read_uid}
     end
 
     def read_uid()
@@ -27,12 +23,18 @@ class RfidReader < GLib::Object
 end
 
 
+
 if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
+
+  Glib::Idle.add do
+    rf.read_uid
+  end
 
   rf.signal_connect('tag') do
     puts uid
   end
+
   Gtk.main
 
 end
