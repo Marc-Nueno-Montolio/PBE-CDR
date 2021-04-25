@@ -1,6 +1,6 @@
 require "gtk3"
 class ReaderTest < Gtk::Widget
-  type_register
+  type_register('tag')
   define_signal('tag', GLib::Signal::RUN_FIRST, nil, nil, String)
 
   def initialize ()
@@ -11,8 +11,11 @@ class ReaderTest < Gtk::Widget
     #start reading thread
     Thread.new do
       uid = gets
-      self.signal_emit('tag', uid) #emit 'tag' signal on behalf of main thread
+      signal_emit('tag', uid) #emit 'tag' signal on behalf of main thread
     end
+  end
+
+  def signal_do_tag()
   end
 end
 
