@@ -21,7 +21,7 @@ class AsyncComm < GLib::Object
     end
   end
 
-  def getStudent(uid)
+  def get_student(uid)
     GLib::Idle.add do
       uri = URI(@server_url + "students?uid=" + uid)
       res = JSON.parse(Net::HTTP.get(uri))
