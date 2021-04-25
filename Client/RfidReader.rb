@@ -5,18 +5,21 @@ class RfidReader < GLib::Object
   type_register
   define_signal("tag", GLib::Signal::RUN_FIRST, nil, nil, String)
 
-  def initialize
+  def initialize(reader_hardware)
     super
-
-    GLib::Idle.add do
-      Thread.new {
-        while (1)
-          str = gets
-          signal_emit('tag', str)
-        end
-      }
+    case reader_hardware
+    when 'PN532'
+      @rfid =  PN532.new
     end
 
+    GLib::Idle.add do
+      read_uid(@rfid)
+    end
+
+    def read_uid(rfid){
+      uid = rfid.read_uid
+      sigal_emit('tag', uid)
+    end
 
     def signal_do_tag(str)
     end
