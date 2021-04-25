@@ -1,6 +1,8 @@
 require 'gtk3'
 require_relative 'readers/reader_emulator'
 require_relative 'readers/pn532' #Nueno
+require_relative 'readers/Mfrc522' #Ignasi
+require_relative 'readers/Rfid_USB' #Nacho
 
 class RfidReader < GLib::Object
   type_register
@@ -11,6 +13,12 @@ class RfidReader < GLib::Object
     case reader_hardware
     when 'PN532'
       @rfid = PN532.new
+    when 'Mfrc522'
+      @rfid = Mfrc522.new
+    when 'Rfid_USB'
+      @rfid = Rfid_USB.new
+    when ''
+      @rfid = 
     when 'emulator'
       @rfid = ReaderEmulator.new
     end
