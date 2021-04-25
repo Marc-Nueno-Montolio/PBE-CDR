@@ -4,7 +4,7 @@ require_relative 'readers/pn532' #Nueno
 
 class RfidReader < GLib::Object
     type_register
-    define_signal('tag', nil, nil, nil, String)
+    define_signal("tag", GLib::Signal::RUN_FIRST, nil, nil, String)
 
     def initialize (rfid_hardware, display_hardware)
         super()
@@ -16,7 +16,7 @@ class RfidReader < GLib::Object
         end
     end
 
-    def read_uid
+    def read_uid()
     #start reading thread
         Thread.new do 
             uid = @rfid.read_uid
@@ -28,6 +28,7 @@ end
 
 if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
+
   def on_tag(_rfid, uid)
       puts uid
   end
