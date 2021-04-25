@@ -5,7 +5,7 @@ require "gtk3"
 
 class AsyncComm < GLib::Object
   type_register
-  define_signal('response', GLib::Signal::RUN_FIRST, nil, nil, Hash)
+  define_signal('response', GLib::Signal::RUN_FIRST, nil, nil, String)
 
   def initialize
     super
@@ -15,12 +15,13 @@ class AsyncComm < GLib::Object
     Thread.new do
       uri = URI(@server_url + "/students?uid=" + uid)
       res = JSON.parse(Net::HTTP.get(uri))
-      signal_emit('response', res)
+      name = res['name']
+      signal_emit('response', name)
     end
 
   end
 
-  def signal_do_response(res)
+  def signal_do_response(name)
     puts 'OK'
   end
 
@@ -31,7 +32,7 @@ if __FILE__ == $0
   comms = AsyncComm.new
   comms.sendQuery('A677A214')
 
-  comms.signal_connect('response') do |sender, res|
-    puts res.to_s
+  comms.signal_connect('response') do |sender, name|
+    puts name
   end
 end
