@@ -15,7 +15,6 @@ class RfidReader < GLib::Object
     }
 
     def signal_do_tag(str)
-      puts 'OK'
     end
 
   end
@@ -24,7 +23,7 @@ end
 if __FILE__ == $0
   reader = RfidReader.new()
 
-  reader.signal_connect("tag") do |str|
+  reader.signal_connect("tag") do |sender, str|
     puts str
   end
 
