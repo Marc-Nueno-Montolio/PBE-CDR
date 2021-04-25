@@ -1,5 +1,5 @@
 require 'ruby-nfc'
-class PN352
+class PN532
   # get all readers available with ruby-nfc gem
   @@readers = NFC::Reader.all
   @@debug = false
