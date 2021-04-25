@@ -7,14 +7,17 @@ require 'gtk3'
 def get_query(query,uid)
     uri = URI(@server_url + "/students?uid=" + uid+'/'+query)
     res_hash = JSON.parse(Net::HTTP.get(uri))
-    
+    return res_hash
 end
 # Retorna el resultat del query
 def get_query_async(query, uid, handler)
-    #TODO: retornar el resultat del query amb un handler
-    
+    Thread.new {
+        uri = URI(@server_url + "/students?uid=" + uid+'/'+query)
+        res_hash = JSON.parse(Net::HTTP.get(uri))
+        return res_hash
+    }
 end
-puts("mellow yellow".split("ello"))
+puts("tasks?date".split("ello"))
 #Retorna el nom i uid si la uid esta mal retorna null
 def get_user(uid)
     uri = URI(@server_url + "/students?uid=" + uid)
