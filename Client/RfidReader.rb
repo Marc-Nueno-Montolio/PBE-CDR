@@ -12,15 +12,12 @@ if __FILE__ == $0
   reader = RfidReader.new()
 
   GLib::Idle.add do
-    thr = Thread.new{
       while(1)
         uid = gets
         if(uid == '1')
           reader.signal_emit('tag')
         end
       end
-    }
-
   end
 
   reader.signal_connect('tag')  do |sender|
