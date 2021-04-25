@@ -12,17 +12,15 @@ class AsyncComm < GLib::Object
 
   end
 
-  def sendQuery(uid)
+  def sendQuery(uid, query)
     GLib::Idle.add do
-      uri = URI("http://138.68.152.226:3000/students?uid=" + uid)
+      uri = URI("http://138.68.152.226:3000/#{query}?uid=" + uid)
       res = JSON.parse(Net::HTTP.get(uri))
       signal_emit('response', res)
     end
-
   end
 
-  def signal_do_response(name)
-    puts 'Catched response'
+  def signal_do_response(res)
   end
 
 end
@@ -30,10 +28,10 @@ end
 if __FILE__ == $0
 
   comms = AsyncComm.new
-  comms.sendQuery('A677A214')
+  comms.sendQuery('A677A214','tasks')
 
-  comms.signal_connect('response') do |sender, name|
-    puts name
+  comms.signal_connect('response') do |sender, res|
+    puts res
   end
 
   Gtk.main
