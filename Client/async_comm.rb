@@ -15,7 +15,7 @@ class AsyncComm < GLib::Object
 
   def sendQuery(uid, query)
     GLib::Idle.add do
-      uri = URI("http://138.68.152.226:3000/#{query}?uid=" + uid)
+      uri = URI(@server_url + "#{query}?uid=" + uid)
       res = JSON.parse(Net::HTTP.get(uri))
       signal_emit('queryResponse', res)
     end
@@ -36,7 +36,7 @@ class AsyncComm < GLib::Object
 
   end
 
-  def signal_do_studentResponse(res)
+  def signal_do_studentResponse(name, uid)
   end
 
   def signal_do_queryResponse(res)
@@ -47,11 +47,16 @@ end
 if __FILE__ == $0
 
   comms = AsyncComm.new
-  comms.sendQuery('A677A214','tasks')
+  #comms.sendQuery('A677A214','tasks')
+  comms.get_student('A677A214')
 
   comms.signal_connect('queryResponse') do |sender, res|
     puts res
   end
+
+  comms.signal_connect('studentResponse') do |sender, name, uid|
+    puts "Student: " + name + " uid: " + uid
+  ends
 
   Gtk.main
 end
