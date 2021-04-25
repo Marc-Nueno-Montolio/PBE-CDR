@@ -76,10 +76,7 @@ sf.buttonC.signal_connect("clicked"){
   if(querystr=="{}")
     sf.empty_response
   else
-    if(query=="{}")
-        #No hi han dades que compleixin filtres indicats
-    end
-    #Si estem aquí, hem enviat query correcte, que pot estar buit o no.
+    #Si estem aquí, hem rebut resposta.
   end
 }
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
