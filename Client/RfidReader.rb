@@ -18,6 +18,7 @@ class RfidReader < GLib::Object
     thr = Thread.new{
       while(1)
         read_uid(@rfid)
+        sleep(1000)
       end
     }
 
