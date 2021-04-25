@@ -70,7 +70,17 @@ sf.buttonB.signal_connect("clicked"){
 
 sf.buttonC.signal_connect("clicked"){
   puts "Sending query: " + sf.input_box.text   #DEBUG
-  puts get_query(sf.input_box.text,sf.uid_logged)
+  query = get_query(sf.input_box.text,sf.uid_logged)
+  querystr = query.to_s
+  puts "Feedback: " + querystr              #DEBUG
+  if(querystr=="{}")
+    sf.empty_response
+  else
+    if(query=="{}")
+        #No hi han dades que compleixin filtres indicats
+    end
+    #Si estem aquí, hem enviat query correcte, que pot estar buit o no.
+  end
 }
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
