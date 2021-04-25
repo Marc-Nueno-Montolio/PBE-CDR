@@ -14,7 +14,7 @@ scenario = 0;
 #2 Escenari B (Introducció dades per enviar a servidor. Si rep error, es mostrarà en aquest mateix estat. buttonA=enviar buttonB=logout
 #3 Escenari C (Mostra de dades rebudes per servidor. buttonA=Tornar escenari B buttonB=logout
 sf = Set_Finestra.new()
-reader = RfidReader.new('emulator')
+reader = RfidReader.new('PN532')
 sf.go_first_escenario
 sf.finestra.show_all
 
