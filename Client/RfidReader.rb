@@ -2,7 +2,7 @@ require 'gtk3'
 
 require_relative 'readers/pn532' #Nueno
 
-class RfidReader < Glib::Object
+class RfidReader < GLib::Object
     type_register
     define_signal('tag', nil, nil, nil, String)
 
