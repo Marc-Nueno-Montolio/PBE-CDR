@@ -39,6 +39,38 @@ reader.signal_connect("tag") do |sender, uid|
   end
 end
 
+sf.buttonA.signal_connect("clicked"){
+  case scenario
+  when 1
+    puts "buttonA catched. Changing to scenario 0A" #debugging
+    scenario = 0
+    sf.go_first_escenario
+  when 2
+    #Enviar string a funció de contacte amb servidor. No implementat encara.
+  when 3
+    scenario = 2
+    sf.go_second_scenario
+  else
+    Gtk.main_quit #No hauria d'entrar mai aquí. FATAL ERROR
+  end
+}
+
+sf.buttonB.signal_connect("clicked"){
+  case scenario
+  when 2..3
+    #Caldria enviar ordre a funció de contacte amb servidor de logout
+    scenario = 0
+    sf.go_first_escenario
+  else
+    Gtk.main_quit #No hauria d'entrar mai aquí. FATAL ERROR
+  end
+}
+
+sf.buttonC.signal_connect("clicked"){
+  puts "Sending query: " + sf.input_box.text   #DEBUG
+}
+sf.finestra.signal_connect('destroy') { Gtk.main_quit}
+
 Gtk.main
 
 
