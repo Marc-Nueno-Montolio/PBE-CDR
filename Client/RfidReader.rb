@@ -20,8 +20,8 @@ class RfidReader < GLib::Object
     when 'Rfid_USB'
       @rfid = Rfid_USB.new
     when 'Rfid_Lucas'
-      readers = NFC::Rfid_Lucas.all
-      @rfid  = Reader.new(readers[0])  
+      readers = NFC::Reader.all
+      @rfid  = Rfid_Lucas.new(readers[0])  
     when 'emulator'
       @rfid = ReaderEmulator.new
     end
