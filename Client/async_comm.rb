@@ -23,7 +23,7 @@ class AsyncComm < GLib::Object
 
   def get_student(uid)
     GLib::Idle.add do
-      uri = URI(@server_url + "students?uid=" + uid)
+      uri = URI("http://138.68.152.226:3000/students?uid=#{uid}")
       res = JSON.parse(Net::HTTP.get(uri))
       signal_emit('studentResponse', res)
     end
