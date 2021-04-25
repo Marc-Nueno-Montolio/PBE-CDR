@@ -25,6 +25,7 @@ sf.finestra.show_all
 
 
 reader.signal_connect("tag") do |sender, uid|
+  puts uid
   if(scenario==0)
     nom, uid_del_nom = get_user(uid)
     if(nom==nil && uid_del_nom==nil)
