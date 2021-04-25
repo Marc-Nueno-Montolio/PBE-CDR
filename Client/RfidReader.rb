@@ -27,7 +27,7 @@ end
 if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
 
-  Glib::Idle.add do
+  GLib::Idle.add do
     rf.read_uid
   end
 
