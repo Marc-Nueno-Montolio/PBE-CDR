@@ -27,14 +27,14 @@ sf.finestra.show_all
 reader.signal_connect("tag") do |sender, uid|
   if(scenario==0)
     @nom, @uid_del_nom = get_user(uid)
-    if(nom==nil && uid_del_nom==nil)
+    if(@nom==nil && @uid_del_nom==nil)
       scenario = 1
       sf.login_fail(uid)
 
     else
       puts "Valid UID Inserted. Changing to scenario 2A" #debugging
       scenario = 2
-      sf.go_second_scenario(nom,uid_del_nom)
+      sf.go_second_scenario(@nom,@uid_del_nom)
     end
   end
 end
