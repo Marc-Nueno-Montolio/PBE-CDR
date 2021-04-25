@@ -29,7 +29,7 @@ end
 
 
 if __FILE__ == $0
-  rf = Rfid. new
+  rf = PN352. new
   puts "Please login with your university card"
   uid = rf.read_uid
   puts uid
