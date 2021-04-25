@@ -34,8 +34,8 @@ end
 
 if __FILE__ == $0
   reader = RfidReader.new('emulator')
-  reader.signal_connect("tag") do |sender, str|
-    puts str
+  reader.signal_connect("tag") do |sender, uid|
+    puts uid
   end
   Gtk.main
 
