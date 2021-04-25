@@ -12,7 +12,7 @@ if __FILE__ == $0
   reader = RfidReader.new()
 
   uid = gets
-  if(uid = '1')
+  if(uid == '1')
     reader.signal_emit('tag')
   end
 
