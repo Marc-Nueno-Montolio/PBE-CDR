@@ -13,21 +13,20 @@ scenario = 0;
 #--LOGGED SCENARIOS--
 #2 Escenari B (Introducció dades per enviar a servidor. Si rep error, es mostrarà en aquest mateix estat. buttonA=enviar buttonB=logout
 #3 Escenari C (Mostra de dades rebudes per servidor. buttonA=Tornar escenari B buttonB=logout
+
 sf = Set_Finestra.new()
-reader = RfidReader.new('PN532')
+#reader_hardware allows to choose nfc reader, info in RfidReader.rb
+# Implemented: emulator: reads a tag from keyboard, PN532: PN532 reader
+reader = RfidReader.new('emulator')
+
 sf.go_first_escenario
 sf.finestra.show_all
 
 
 #GESTIÓ SENYALS
-
-#Faltaria implementar device per gestionar signal de lector UID. Ús temporal fsg:
-
-
 reader.signal_connect("tag") do |sender, uid|
-  puts uid
   if(scenario==0)
-    nom, uid_del_nom = get_user(uid)
+    @nom, @uid_del_nom = get_user(uid)
     if(nom==nil && uid_del_nom==nil)
       scenario = 1
       sf.login_fail(uid)
@@ -50,7 +49,7 @@ sf.buttonA.signal_connect("clicked"){
     #Enviar string a funció de contacte amb servidor. No implementat encara.
   when 3
     scenario = 2
-    sf.go_second_scenario
+    sf.go_second_scenario(@nom, @uid_del_nom)
   else
     Gtk.main_quit #No hauria d'entrar mai aquí. FATAL ERROR
   end
