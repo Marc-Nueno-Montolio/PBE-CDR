@@ -28,8 +28,10 @@ end
 
 if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
-
-  rf.signal_connect('tag', { puts 'hello' })
+  def print_text
+      puts 'OK'
+  end
+  rf.signal_connect('tag', print_text)
 end
 
 
