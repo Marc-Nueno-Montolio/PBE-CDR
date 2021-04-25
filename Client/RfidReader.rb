@@ -7,12 +7,16 @@ class RfidReader < GLib::Object
 
   def initialize
     super
-    thr = Thread.new {
-      while (1)
-        str = gets
-        signal_emit('tag', str)
-      end
-    }
+
+    GLib::Idle.add do
+      Thread.new {
+        while (1)
+          str = gets
+          signal_emit('tag', str)
+        end
+      }
+    end
+
 
     def signal_do_tag(str)
     end
