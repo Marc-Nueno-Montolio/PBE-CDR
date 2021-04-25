@@ -26,8 +26,8 @@ reader.signal_connect("tag") do |sender, uid|
   puts "Scanned tag with uid: #{uid}"
 
   if (scenario == 0)
-    GLib::Idle.add do
-      nom, uid_del_nom = get_user("#{uid}")
+
+      nom, uid_del_nom = 'Marc', uid
       if (nom == nil && uid_del_nom == nil)
         scenario = 1
         sf.login_fail("#{uid}")
@@ -38,7 +38,6 @@ reader.signal_connect("tag") do |sender, uid|
         sf.go_second_scenario(nom, uid_del_nom)
       end
     end
-  end
 
 end
 
