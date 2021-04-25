@@ -21,11 +21,6 @@ sf.finestra.show_all
 
 #GESTIÓ SENYALS
 
-
-#dev.get_gs.signal_connect("uid_read"){
-#    puts "I caught an UID"
-#}
-
 #Faltaria implementar device per gestionar signal de lector UID. Ús temporal fsg:
 dev.get_gs.signal_connect("uid_read"){
     if(scenario==0)
@@ -40,26 +35,7 @@ dev.get_gs.signal_connect("uid_read"){
                sf.go_second_scenario(nom,uid_del_nom)
         end
     end
-    #puts "I caught an UID. It is: " + dev.get_uid_caught
 }
-
-#       if (scenario==0)       
-#           nom,uid_del_nom = get_user(uid)
-#           if(nom==null && uid_del_nom==null){
-#               scenario = 1
-#               sf.login_fail(uid)
-#           }else{
-#               scenario = 2
-#               sf.go_second_scenario(nom,uid_del_nom)
-#       end
-#}
-#
-#
-#
-#
-#
-#
-#
 
 sf.buttonA.signal_connect("clicked"){
     case scenario
@@ -89,7 +65,7 @@ sf.buttonB.signal_connect("clicked"){
 }
 
 sf.buttonC.signal_connect("clicked"){
-    puts "Sending query: " + sf.input_box.text
+    puts "Sending query: " + sf.input_box.text   #DEBUG
 }
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
