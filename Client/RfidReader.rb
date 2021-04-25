@@ -13,7 +13,10 @@ class RfidReader < GLib::Object
     end
 
     GLib::Idle.add do
-      read_uid(@rfid)
+      while(1)
+        read_uid(@rfid)
+      end
+
     end
 
     def read_uid(rfid)
