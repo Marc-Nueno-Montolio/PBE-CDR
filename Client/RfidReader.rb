@@ -2,7 +2,7 @@ require 'gtk3'
 
 require_relative 'readers/pn532' #Nueno
 
-class RfidReader
+class RfidReader < GLib::Object
     def initialize (rfid_hardware, display_hardware)
         super()
         case rfid_hardware
