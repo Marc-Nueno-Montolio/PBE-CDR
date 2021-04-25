@@ -12,12 +12,15 @@ class AsyncComm < GLib::Object
   end
 
   def sendQuery(uid)
-    Thread.new do
-      uri = URI(@server_url + "/students?uid=" + uid)
-      res = JSON.parse(Net::HTTP.get(uri))
-      name = res['name']
-      puts "sent" + name
-      signal_emit('response', name)
+    GLib::Idle.add do
+      th = Thread.new do
+        uri = URI(@server_url + "/students?uid=" + uid)
+        res = JSON.parse(Net::HTTP.get(uri))
+        name = res['name']
+        puts "sent" + name
+        signal_emit('response', name)
+      end
+      th.join
     end
 
   end
