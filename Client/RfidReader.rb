@@ -3,6 +3,16 @@ require 'gtk3'
 require_relative 'readers/pn532' #Nueno
 
 class RfidReader < GLib::Object
+
+    type_register()
+    define_signal(
+      'tag',
+      GLib::Signal::RUN_FIRST,
+      nil,
+      nil,
+      String
+    )
+
     def initialize (rfid_hardware, display_hardware)
         super()
         case rfid_hardware
