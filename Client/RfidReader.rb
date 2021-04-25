@@ -30,8 +30,10 @@ if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
 
   rf.signal_connect('tag') do
-    puts 'OK'
+      puts 'OK'
   end
+  Gtk.main
+
 end
 
 
