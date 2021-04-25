@@ -26,21 +26,19 @@ class AsyncComm < GLib::Object
       uri = URI(@server_url + "/students?uid=" + uid)
       res_hash = JSON.parse(Net::HTTP.get(uri))
       if res_hash.key?("name")
-        puts("ESTUDIANT: " +res_hash["name"] +", UID:" + res_hash["uid"])  #debugging
+        puts("ESTUDIANT: " + res_hash["name"] + ", UID:" + res_hash["uid"]) #debugging
         signal_emit_('studentResponse', res_hash["name"], res_hash["uid"])
       else
-        puts("No existeix l'estudiant")                                    #debugging
+        puts("No existeix l'estudiant") #debugging
         signal_emit_('studentResponse', nil, nil)
       end
     end
 
   end
 
-  def signal_do_studentResponse(name, uid)
-  end
+  def signal_do_studentResponse(name, uid) end
 
-  def signal_do_queryResponse(res)
-  end
+  def signal_do_queryResponse(res) end
 
 end
 
@@ -56,7 +54,7 @@ if __FILE__ == $0
 
   comms.signal_connect('studentResponse') do |sender, name, uid|
     puts "Student: " + name + " uid: " + uid
-  ends
+  end
 
   Gtk.main
 end
