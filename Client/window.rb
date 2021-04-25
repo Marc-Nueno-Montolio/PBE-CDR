@@ -26,6 +26,7 @@ class Set_Finestra
 		@missatge_benvinguda = "Welcome "
 		@eyq_message = "Enter your query:"
 		@eyq_button_message = "Send"
+		@no_matches_message = "No matches found for your query."
 
 		#Creació objectes gràfics permanents
 		@finestra = get_window
@@ -35,6 +36,7 @@ class Set_Finestra
 		@buttonB = get_logout_button     #Fixe. No es modificarà.
 		@buttonC = get_send_button      #Botó per enviar dades
 		@eyq_label = get_eyq_label
+		@no_matches_label = get_no_matches_label
 		@input_box = get_a_input_text_box
 		@finestra.add(@graella)
 
@@ -113,6 +115,14 @@ class Set_Finestra
 		@graella.attach(@buttonC,2,3,1,1)
 		@finestra.show_all
 	end
+
+	def empty_response
+		puts "empty_response" #DEBUG
+		if(@no_matches_label != @graella.get_child_at(0,4)) #Només afegim la primera vegada.
+			@graella.attach(@no_matches_label,0,4,1,1)
+			@finestra.show_all
+		end
+	end
 			
 	def clean_grid
 		i=0
@@ -151,6 +161,11 @@ class Set_Finestra
 	def get_login_label #Retorna objecte etiqueta
 		label = Gtk::Label.new("")
 		label.set_size_request(@res_ample - @marge, @res_altura - @marge)
+		return label
+	end
+
+	def get_no_matches_label
+		label = Gtk::Label.new(@no_matches_message)
 		return label
 	end
 
