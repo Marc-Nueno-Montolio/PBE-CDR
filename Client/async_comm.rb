@@ -36,7 +36,7 @@ class AsyncComm < GLib::Object
     end
   end
 
-  def signal_do_studentResponse(res) end
+  def signal_do_studentResponse(name, uid) end
 
   def signal_do_queryResponse(res) end
 
@@ -52,8 +52,8 @@ if __FILE__ == $0
     puts res
   end
 
-  comms.signal_connect('studentResponse') do |sender, res|
-    puts res
+  comms.signal_connect('studentResponse') do |sender, name, uid|
+    puts name + uid
   end
 
   Gtk.main
