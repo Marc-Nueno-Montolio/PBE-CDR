@@ -6,7 +6,7 @@ require "gtk3"
 class AsyncComm < GLib::Object
   type_register
   define_signal('queryResponse', GLib::Signal::RUN_FIRST, nil, nil, Hash)
-  define_signal('studentResponse', GLib::Signal::RUN_FIRST, nil, nil, Hash)
+  define_signal('studentResponse', GLib::Signal::RUN_FIRST, nil, nil, String, String)
 
   def initialize
     super
@@ -25,7 +25,14 @@ class AsyncComm < GLib::Object
     GLib::Idle.add do
       uri = URI("http://138.68.152.226:3000/students?uid=#{uid}")
       res = JSON.parse(Net::HTTP.get(uri))
-      signal_emit('studentResponse', res)
+      if res.key?("name")
+        signal_emit('studentResponse', res["name"], res["uid"])
+      else
+        puts("No existeix l'estudiant")                                    #debugging
+        signal_emit('studentResponse', nil, nil)
+
+      end
+      signal_emit('studentResponse', name, uid)
     end
   end
 
