@@ -21,7 +21,6 @@ class RfidReader < GLib::Object
     #start reading thread
         Thread.new do 
             uid = @rfid.read_uid
-            puts uid
             signal_emit('tag', uid) #emit 'tag' signal on behalf of main thread
         end
     end
@@ -32,7 +31,7 @@ if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
 
   rf.signal_connect('tag') do
-      puts 'OK'
+    puts uid
   end
   Gtk.main
 
