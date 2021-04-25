@@ -2,7 +2,7 @@ require 'gtk3'
 require_relative 'readers/reader_emulator'
 require_relative 'readers/pn532' #Nueno
 require_relative 'readers/Mfrc522' #Ignasi
-require_relative 'Rfid_Lucas' #Lucas
+require_relative 'readers/Rfid_Lucas' #Lucas
 require_relative 'readers/Rfid_USB' #Nacho
 
 
