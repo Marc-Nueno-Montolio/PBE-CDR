@@ -3,7 +3,7 @@ require_relative 'readers/pn532' #Nueno
 
 class RfidReader < GLib::Object
   type_register
-  define_signal('tag', GLib::Signal::RUN_FIRST, nil, nil, nil)
+  define_signal('tag', GLib::Signal::RUN_FIRST, nil, nil, String)
 end
 
 
@@ -16,7 +16,7 @@ if __FILE__ == $0
     reader.signal_emit('tag')
   end
 
-  reader.signal_connect('tag') do
+  reader.signal_connect('tag')  do |sender|
     puts 'OK'
   end
 
