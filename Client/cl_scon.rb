@@ -17,7 +17,7 @@ def get_query_async(query, uid, handler)
         return res_hash
     }
 end
-puts("tasks?date".split("ello"))
+
 #Retorna el nom i uid si la uid esta mal retorna null
 def get_user(uid)
     uri = URI(@server_url + "/students?uid=" + uid)
