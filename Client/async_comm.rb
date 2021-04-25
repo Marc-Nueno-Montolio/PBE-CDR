@@ -25,7 +25,7 @@ class AsyncComm < GLib::Object
     GLib::Idle.add do
       uri = URI(@server_url + "students?uid=" + uid)
       res = JSON.parse(Net::HTTP.get(uri))
-      signal_emit('queryResponse', res)
+      signal_emit('studentResponse', res)
     end
   end
 
