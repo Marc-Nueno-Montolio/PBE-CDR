@@ -29,10 +29,7 @@ end
 if  __FILE__== $0
   rf = RfidReader.new('PN532',nil)
 
-  def on_tag(_rfid, uid)
-      puts uid
-  end
-  rf.signal_connect('tag', :on_tag)
+  rf.signal_connect('tag', { puts 'hello' })
 end
 
 
