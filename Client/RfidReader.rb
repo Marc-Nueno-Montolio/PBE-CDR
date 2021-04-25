@@ -14,7 +14,7 @@ class RfidReader < GLib::Object
       end
     }
 
-    def signal_do_tag
+    def signal_do_tag(str)
       puts 'OK'
     end
 
