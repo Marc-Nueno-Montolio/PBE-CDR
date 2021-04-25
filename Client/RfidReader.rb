@@ -17,8 +17,8 @@ class RfidReader < GLib::Object
     end
 
     def read_uid(rfid){
-      uid = rfid.read_uid
-      sigal_emit('tag', uid)
+      uid = rfid.read_uid()
+      signal_emit('tag', uid)
     end
 
     def signal_do_tag(str)
