@@ -15,19 +15,18 @@ scenario = 0;
 sf = Set_Finestra.new()
 #El paràmetre reader_hardware permet escollir quin lector farem servir: 'emulator' llegeix un tag desde teclat.
 
-reader = RfidReader.new('PN532')
+reader = RfidReader.new('emulator')
 sf.go_first_escenario
 sf.finestra.show_all
 
 #GESTIÓ SENYALS
-
-reader.signal_connect('tag') do |sender, uid|
+#
+reader.signal_connect("tag") do |sender, uid|
   if (scenario == 0)
     nom, uid_del_nom = get_user(uid)
     if (nom == nil && uid_del_nom == nil)
       scenario = 1
       sf.login_fail(uid)
-
     else
       puts "Valid UID Inserted. Changing to scenario 2A" #debugging
       scenario = 2
