@@ -18,7 +18,7 @@ class AsyncComm < GLib::Object
     signal_emit(response)
   end
 
-  def signal_do_tag(response)
+  def signal_do_response(response)
   end
 
 end
