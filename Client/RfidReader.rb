@@ -14,12 +14,14 @@ class RfidReader < GLib::Object
         when nil
             @rfid = nil
         end
+        GLib::Idle.add{read_uid}
     end
 
     def read_uid()
     #start reading thread
         Thread.new do 
             uid = @rfid.read_uid
+            puts uid
             signal_emit('tag', uid) #emit 'tag' signal on behalf of main thread
         end
     end
