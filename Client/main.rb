@@ -4,8 +4,6 @@ require_relative 'cl_scon.rb'
 require_relative 'RfidReader'
 #require_relative 'fake_signal_gen.rb' #Dummy dev class
 
-
-
 scenario = 0;
 #--NON-LOGGED SCENARIO--
 #0 Escenari A (log in, esperant lectura UID per enviar)     buttonA=null, buttonB=null
@@ -20,25 +18,29 @@ reader = RfidReader.new('emulator')
 sf.go_first_escenario
 sf.finestra.show_all
 
-
 #GESTIÓ SENYALS
 
 #Faltaria implementar device per gestionar signal de lector UID. Ús temporal fsg:
-reader.signal_connect("uid_read"){
-  if(scenario==0)
-    nom, uid_del_nom = get_user("#{dev.get_uid_caught}")
-    if(nom==nil && uid_del_nom==nil)
-      scenario = 1
-      sf.login_fail("#{dev.get_uid_caught}")
 
-    else
-      puts "Valid UID Inserted. Changing to scenario 2A" #debugging
-      scenario = 2
-      sf.go_second_scenario(nom,uid_del_nom)
+reader.signal_connect("tag") do |sender, uid|
+  puts "Scanned tag with uid: #{uid}"
+
+  if (scenario == 0)
+    GLib::Idle.add do
+      nom, uid_del_nom = get_user("#{uid}")
+      if (nom == nil && uid_del_nom == nil)
+        scenario = 1
+        sf.login_fail("#{uid}")
+
+      else
+        puts "Valid UID Inserted. Changing to scenario 2A" #debugging
+        scenario = 2
+        sf.go_second_scenario(nom, uid_del_nom)
+      end
     end
   end
-}
 
+end
 
 Gtk.main
 
