@@ -16,6 +16,7 @@ class AsyncComm < GLib::Object
       uri = URI(@server_url + "/students?uid=" + uid)
       res = JSON.parse(Net::HTTP.get(uri))
       name = res['name']
+      puts "sent" + name
       signal_emit('response', name)
     end
 
