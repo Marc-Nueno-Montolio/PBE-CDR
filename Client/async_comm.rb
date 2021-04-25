@@ -21,8 +21,6 @@ class AsyncComm < GLib::Object
 
   end
 
-  end
-
   def signal_do_response(name)
     puts 'OK'
   end
