@@ -1,8 +1,8 @@
 require "gtk3"
 require_relative 'window.rb'
 require_relative 'cl_scon.rb'
-#require_relative 'device.rb'    NO IMPLEMENTAT ENCARA
-require_relative 'fake_signal_gen.rb' #Dummy dev class
+require_relative 'RfidReader'
+#require_relative 'fake_signal_gen.rb' #Dummy dev class
 
 
 scenario = 0;
