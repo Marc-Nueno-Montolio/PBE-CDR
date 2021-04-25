@@ -1,4 +1,5 @@
 require 'gtk3'
+require_relative 'readers/reader_emulator'
 require_relative 'readers/pn532' #Nueno
 
 class RfidReader < GLib::Object
@@ -10,13 +11,14 @@ class RfidReader < GLib::Object
     case reader_hardware
     when 'PN532'
       @rfid = PN532.new
+    when 'emulator'
+      @rfid = ReaderEmulator.new
     end
 
     GLib::Idle.add do
       while(1)
         read_uid(@rfid)
       end
-
     end
 
     def read_uid(rfid)
@@ -24,18 +26,17 @@ class RfidReader < GLib::Object
       signal_emit('tag', uid)
     end
 
-    def signal_do_tag(str) end
+    def signal_do_tag(str)
+    end
 
   end
 end
 
 if __FILE__ == $0
-  reader = RfidReader.new('PN532')
-
+  reader = RfidReader.new('emulator')
   reader.signal_connect("tag") do |sender, str|
     puts str
   end
-
   Gtk.main
 
 end
