@@ -28,11 +28,10 @@ class AsyncComm < GLib::Object
       if res.key?("name")
         signal_emit('studentResponse', res["name"], res["uid"])
       else
-        puts("No existeix l'estudiant")                                    #debugging
+        puts("No existeix l'estudiant") #debugging
         signal_emit('studentResponse', nil, nil)
 
       end
-      signal_emit('studentResponse', name, uid)
     end
   end
 
