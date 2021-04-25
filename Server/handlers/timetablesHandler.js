@@ -28,7 +28,7 @@ var handler = (req,res)=>{
     }
 
     // Enviem el query a la base de dades
-    db.sendQuery('timetables_unwinded', query, options, {_id: 0, student_id: 0}, (err, obj) => {
+    db.sendQuery('timetable_unwind', query, options, {_id: 0, student_id: 0}, (err, obj) => {
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(obj))
     })
