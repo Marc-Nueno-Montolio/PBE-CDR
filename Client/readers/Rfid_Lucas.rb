@@ -5,7 +5,7 @@ class Rfid_Lucas
     @reader = reader
   end
 
-  def read
+  def read_uid
     @reader.poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |tag|
       begin
         tagstr = "#{tag}"[0..8].upcase
