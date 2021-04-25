@@ -70,6 +70,7 @@ sf.buttonB.signal_connect("clicked"){
 
 sf.buttonC.signal_connect("clicked"){
   puts "Sending query: " + sf.input_box.text   #DEBUG
+  puts get_query(sf.input_box.text,sf.uid_logged)
 }
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
