@@ -6,7 +6,7 @@ require "gtk3"
 class AsyncComm < GLib::Object
   type_register
   define_signal('queryResponse', GLib::Signal::RUN_FIRST, nil, nil, Hash)
-  define_signal('studentResponse', GLib::Signal::RUN_FIRST, nil, nil, String, String)
+  define_signal('studentResponse', GLib::Signal::RUN_FIRST, nil, nil, Hash)
 
   def initialize
     super
@@ -21,22 +21,15 @@ class AsyncComm < GLib::Object
     end
   end
 
-  def get_student(uid)
+  def getStudent(uid)
     GLib::Idle.add do
-      uri = URI(@server_url + "/students?uid=" + uid)
-      res_hash = JSON.parse(Net::HTTP.get(uri))
-      if res_hash.key?("name")
-        name = res_hash["name"]
-        uid = res_hash["uid"]
-        signal_emit('studentResponse', name, uid)
-      else
-        puts("No existeix l'estudiant")
-      end
+      uri = URI(@server_url + "students?uid=" + uid)
+      res = JSON.parse(Net::HTTP.get(uri))
+      signal_emit('queryResponse', res)
     end
-
   end
 
-  def signal_do_studentResponse(name, uid) end
+  def signal_do_studentResponse(res) end
 
   def signal_do_queryResponse(res) end
 
@@ -52,8 +45,8 @@ if __FILE__ == $0
     puts res
   end
 
-  comms.signal_connect('studentResponse') do |sender, name, uid|
-    puts "Student: " + name + " uid: " + uid
+  comms.signal_connect('studentResponse') do |sender, res|
+    puts res
   end
 
   Gtk.main
