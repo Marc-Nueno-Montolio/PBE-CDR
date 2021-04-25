@@ -3,17 +3,20 @@ require_relative 'readers/pn532' #Nueno
 
 class RfidReader < GLib::Object
   type_register
-  define_signal('tag', GLib::Signal::RUN_FIRST, nil, nil, String)
+  define_signal("tag", GLib::Signal::RUN_FIRST, nil, nil, String)
 
   def initialize
     super
-
     thr = Thread.new{
       while(1)
         str = gets
         signal_emit('tag', str)
       end
     }
+
+    def signal_do_tag
+      puts 'OK'
+    end
 
   end
 end
@@ -22,13 +25,14 @@ end
 if __FILE__ == $0
   reader = RfidReader.new()
 
-
-  reader.signal_connect('tag')  do |str|
+  reader.signal_connect("tag") {
     puts str
-  end
+  }
 
 
-  Gtk.main
+
+
+      Gtk.main
 
 
 end
