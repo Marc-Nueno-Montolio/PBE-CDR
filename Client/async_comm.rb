@@ -13,7 +13,7 @@ class AsyncComm < GLib::Object
 
   def sendQuery(uid, query)
     Thread.new do
-      uri = URI("http://127.0.0.1:8080/#{query}?uid=#{uid}")
+      uri = URI(@server_url + "/#{query}?uid=#{uid}")
       res = JSON.parse(Net::HTTP.get(uri))
       signal_emit('response', res)
     end
@@ -29,7 +29,6 @@ end
 if __FILE__ == $0
 
   comms = AsyncComm.new
-
   comms.sendQuery('A677A214', 'tasks')
 
   comms.signal_connect('response') do |sender, res|
