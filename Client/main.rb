@@ -1,7 +1,9 @@
 require "gtk3"
+require 'json'
 require_relative 'window.rb'
 require_relative 'cl_scon.rb'
 require_relative 'RfidReader'
+
 #require_relative 'fake_signal_gen.rb' #Dummy dev class
 
 

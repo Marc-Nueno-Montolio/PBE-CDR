@@ -1,4 +1,5 @@
 require "gtk3"
+require 'json'
 
 class Set_Finestra
 	def initialize
@@ -137,14 +138,6 @@ class Set_Finestra
 	def get_grid #Retorna objecte graella
 		return Gtk::Grid.new
 	end
-
-	#def get_login_label #Retorna objecte etiqueta
-	#	label = Gtk::Label.new(@missatge)
-	#	label.set_size_request(@res_ample - @marge, @res_altura - @marge)
-	#	label.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
-	#	label.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
-	#	return label
-	#end
 
 	def get_login_label #Retorna objecte etiqueta
 		label = Gtk::Label.new("")
