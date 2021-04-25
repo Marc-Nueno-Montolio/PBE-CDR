@@ -1,7 +1,9 @@
 require "gtk3"
+require 'json'
 require_relative 'window.rb'
 require_relative 'cl_scon.rb'
 require_relative 'RfidReader'
+
 #require_relative 'fake_signal_gen.rb' #Dummy dev class
 
 
@@ -68,6 +70,7 @@ sf.buttonB.signal_connect("clicked"){
 
 sf.buttonC.signal_connect("clicked"){
   puts "Sending query: " + sf.input_box.text   #DEBUG
+  puts get_query(sf.input_box.text,sf.uid_logged)
 }
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 

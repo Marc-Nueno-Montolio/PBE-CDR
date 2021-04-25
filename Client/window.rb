@@ -1,4 +1,5 @@
 require "gtk3"
+require 'json'
 
 class Set_Finestra
 	def initialize
@@ -37,6 +38,9 @@ class Set_Finestra
 		@input_box = get_a_input_text_box
 		@finestra.add(@graella)
 
+		#UID logged
+		@uid_logged = nil
+
 
 	end
 		
@@ -62,12 +66,17 @@ class Set_Finestra
 		return @finestra
 	end
 
+	def uid_logged
+		return @uid_logged
+	end
+
 	#Primer escenari
 
 	def go_first_escenario
 		@finestra.title = "#{@titol_finestra} LOGIN"
 		@finestra.set_default_size @res_ample, @res_altura
 		#@graella.remove_column(0)
+		@uid_logged = nil
 		clean_grid
 		#@graella.remove_column(0)
 		#@graella.remove_row(1)                       #Eliminem botó Go Back si venim de log failed
@@ -91,6 +100,7 @@ class Set_Finestra
 	def go_second_scenario(nom_user, uid)
 		@finestra.title = "#{@titol_finestra} LOGGED"
 		label_wm = get_logged_label(nom_user, uid)
+		@uid_logged = uid
 		clean_grid
 		#@finestra.set_default_size @res_ample+100, @res_altura
 		@graella.attach(label_wm,0,0,1,1)
@@ -137,14 +147,6 @@ class Set_Finestra
 	def get_grid #Retorna objecte graella
 		return Gtk::Grid.new
 	end
-
-	#def get_login_label #Retorna objecte etiqueta
-	#	label = Gtk::Label.new(@missatge)
-	#	label.set_size_request(@res_ample - @marge, @res_altura - @marge)
-	#	label.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
-	#	label.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
-	#	return label
-	#end
 
 	def get_login_label #Retorna objecte etiqueta
 		label = Gtk::Label.new("")
