@@ -206,11 +206,13 @@ class Set_Finestra
 	
 	def get_logout_button
 		button = Gtk::Button.new(:label => @mis_logout_button)
+		button.set_name('logout_button')
 		return button
 	end
 
 	def get_send_button
 		button = Gtk::Button.new(:label => @eyq_button_message)
+		button.set_name('sendbutton')
 		return button
 	end
 
