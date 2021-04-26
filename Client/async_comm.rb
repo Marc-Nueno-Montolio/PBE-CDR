@@ -55,9 +55,6 @@ if __FILE__ == $0
     puts res
   end
 
-  comms.signal_connect('studentResponse') do |sender, name, uid|
-    puts name + uid
-  end
 
   Gtk.main
 end
