@@ -76,7 +76,8 @@ sf.buttonC.signal_connect("clicked"){
   if(querystr=="{}")
     sf.empty_response
   else
-    #Si estem aquí, hem rebut resposta.
+    scenario = 2
+    sf.go_third_scenario(query)
   end
 }
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}

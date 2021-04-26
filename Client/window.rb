@@ -116,12 +116,18 @@ class Set_Finestra
 		@finestra.show_all
 	end
 
+
 	def empty_response
 		puts "empty_response" #DEBUG
 		if(@no_matches_label != @graella.get_child_at(0,4)) #Només afegim la primera vegada.
 			@graella.attach(@no_matches_label,0,4,1,1)
 			@finestra.show_all
 		end
+	end
+
+	def go_third_scenario(hash_rcv)
+		puts "Not-empty hash received" #DEBUG
+		#Not implemented yet.
 	end
 			
 	def clean_grid
