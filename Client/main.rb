@@ -3,13 +3,13 @@ require 'json'
 require_relative 'window.rb'
 require_relative 'async_comm'
 require_relative 'RfidReader'
-require_relative 'LcdDisplayer'
+#require_relative 'LcdDisplayer'
 
 cssProvider = Gtk::CssProvider.new
 cssProvider.load_from_path('./styles.css')
 Gtk::StyleContext.add_provider_for_screen(Gdk::Screen.default, cssProvider, Gtk::StyleProvider::PRIORITY_USER)
 scenario = 0;
-@lcd = LcdDisplayer.new
+#@lcd = LcdDisplayer.new
 
 #--NON-LOGGED SCENARIO--
 #0 Escenari A (log in, esperant lectura UID per enviar)     buttonA=null, buttonB=null
@@ -32,7 +32,7 @@ sf.finestra.show_all
 reader.signal_connect("tag") do |sender, uid|
   if (scenario == 0)
     com.get_student(uid)
-    @lcd.first_stage
+    #@lcd.first_stage
   end
 end
 
@@ -42,12 +42,12 @@ com.signal_connect('studentResponse') do |sender, name, uid|
   if (@nom == nil && @uid_del_nom == nil)
     scenario = 1
     sf.login_fail(uid)
-    @lcd.error_login
+    #@lcd.error_login
   else
     puts "Valid UID Inserted. Changing to scenario 2A" #debugging
     scenario = 2
     sf.go_second_scenario(@nom, @uid_del_nom)
-    @lcd.login(@nom)
+    #@lcd.login(@nom)
   end
 
 end
@@ -72,9 +72,13 @@ sf.buttonA.signal_connect("clicked") {
 
 sf.buttonB.signal_connect("clicked") {
   case scenario
-  when 2..3
+  when 2
     #Caldria enviar ordre a funció de contacte amb servidor de logout
     scenario = 0
+    sf.go_first_escenario
+  when 3
+    scenario = 0
+    sf.reestablish_grid
     sf.go_first_escenario
   else
     Gtk.main_quit #No hauria d'entrar mai aquí. FATAL ERROR

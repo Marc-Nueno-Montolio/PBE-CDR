@@ -28,6 +28,10 @@ class Set_Finestra
 		@eyq_button_message = "Send"
 		@no_matches_message = "No matches found for your query."
 
+		#Paràmetres de configuració query results (3r escenari)
+
+		@saq_button_message = "Send other query"
+
 		#Creació objectes gràfics permanents
 		@finestra = get_window
 		@graella = get_grid
@@ -35,6 +39,7 @@ class Set_Finestra
 		@buttonA = get_logfailed_button  #Variarà entre log again (escenari 1) i go back de escenari 3 a escenari 2
 		@buttonB = get_logout_button     #Fixe. No es modificarà.
 		@buttonC = get_send_button      #Botó per enviar dades
+		@buttonD = get_send_another_query_button #Botó per, mostrant dades de query, es vulgui enviar altre petició.
 		@eyq_label = get_eyq_label
 		@no_matches_label = get_no_matches_label
 		@input_box = get_a_input_text_box
@@ -59,6 +64,10 @@ class Set_Finestra
 		return @buttonC
 	end
 
+	def buttonD
+		return @buttonD
+	end
+
 	def input_box
 		return @input_box
 	end
@@ -80,8 +89,6 @@ class Set_Finestra
 		#@graella.remove_column(0)
 		@uid_logged = nil
 		clean_grid
-		#@graella.remove_column(0)
-		#@graella.remove_row(1)                       #Eliminem botó Go Back si venim de log failed
 		login_label_reading_status
 		@graella.attach(@label_log,0,0,1,1)
 		@finestra.show_all
@@ -140,13 +147,13 @@ class Set_Finestra
 			iter = results_list.append #Crea i retorna fila (objecte Treelter) afegida, s'afegeix a última posició.
 			j = 0
 			while j < keys_of_table.length 
-				iter.set_value(j,hash_rcv[i].values_at(keys_of_table[j]).to_s)
+				iter.set_value(j,string_cleaner(hash_rcv[i].values_at(keys_of_table[j]).to_s))
 				j += 1
 			end
 				i += 1
 		end
 
-		treeview = Gtk::TreeView.new(results_list)
+		treeview = Gtk::TreeView.new(results_list)  
 		puts "3"
 		i = 0
 		while i < keys_of_table.length
@@ -157,7 +164,7 @@ class Set_Finestra
 		end
 		puts "4"
 
-		#Bloc scrollwindow
+		#Finestra que permet scroll amb ratolí
 
 		scr_treelist = Gtk::ScrolledWindow.new()
 		scr_treelist.set_vexpand(true)
@@ -167,7 +174,14 @@ class Set_Finestra
 
 		#Afegim a graella
 
-		@graella.attach(scr_treelist,0,0,8,10)
+		@graella.attach(scr_treelist,0,0,5,8)
+
+		#Afegim botons
+
+		@graella.attach_next_to(@buttonB,scr_treelist,3,1,1)
+		#@graella.attach_next_to(@buttonD,scr_treelist,1,1)
+		#@graella.attach(@buttonB,0,5,1,1)
+		#@graella.attach(@buttonD,1,5,1,1)
 		scr_treelist.add(treeview)
 		@finestra.show_all
 
@@ -176,6 +190,11 @@ class Set_Finestra
 		#Not implemented yet.
 	end
 			
+	def string_cleaner(str)
+		char_arr = str.chars
+		return char_arr[2,str.length-4].join("")
+	end
+
 	def true_generator
 		return true
 	end
@@ -228,6 +247,11 @@ class Set_Finestra
 		return Gtk::Grid.new
 	end
 
+	def reestablish_grid
+		@graella = get_grid
+		@finestra.add(@graella)
+	end
+
 	def get_login_label #Retorna objecte etiqueta
 		label = Gtk::Label.new("")
 		label.set_name('mainlabel')
@@ -272,6 +296,10 @@ class Set_Finestra
 		button = Gtk::Button.new(:label => @mis_logout_button)
 		button.set_name('logout_button')
 		return button
+	end
+
+	def get_send_another_query_button 
+		return Gtk::Button.new(:label => @saq_button_message)
 	end
 
 	def get_send_button
