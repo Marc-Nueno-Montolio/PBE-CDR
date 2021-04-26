@@ -72,7 +72,7 @@ sf.buttonB.signal_connect("clicked"){
 }
 
 sf.buttonC.signal_connect("clicked"){
-  puts "Sending query: " + sf.input_box.text   #DEBUG
+  puts sf.uid_logged + ": Sending query: " + sf.input_box.text
   com.sendQuery(sf.uid_logged, sf.input_box.text)
 }
 

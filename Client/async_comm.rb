@@ -48,8 +48,8 @@ end
 if __FILE__ == $0
 
   comms = AsyncComm.new
-  #comms.sendQuery('A677A214','tasks')
-  comms.get_student('A677A214')
+  comms.sendQuery('A677A214','tasks')
+  #comms.get_student('A677A214')
 
   comms.signal_connect('queryResponse') do |sender, res|
     puts res
