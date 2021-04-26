@@ -18,7 +18,7 @@ scenario = 0;
 #3 Escenari C (Mostra de dades rebudes per servidor. buttonA=Tornar escenari B buttonB=logout
 
 
-comms = AsyncComm.new
+com = AsyncComm.new
 sf = Set_Finestra.new()
 #reader_hardware allows to choose nfc reader, info in RfidReader.rb
 # Implemented: emulator: reads a tag from keyboard, PN532: PN532 reader
@@ -73,18 +73,23 @@ sf.buttonB.signal_connect("clicked"){
 
 sf.buttonC.signal_connect("clicked"){
   puts "Sending query: " + sf.input_box.text   #DEBUG
-  comms.sendQuery(sf.uid_logged, sf.input_box.text)
+  com.sendQuery(sf.uid_logged, sf.input_box.text)
 }
 
-comms.signal_connect('queryResponse') do |sender, query|
-  querystr = query.to_s
-  puts "Feedback: " + querystr              #DEBUG
-  if(querystr=="{}")
-    sf.empty_response
-  else
-    scenario = 2
-    sf.go_third_scenario(query)
-  end
+
+com.signal_connect('queryResponse') do |sender, res|
+  puts res
+end
+
+# comms.signal_connect('queryResponse') do |sender, query|
+#   querystr = query.to_s
+#   puts "Feedback: " + querystr              #DEBUG
+#   if(querystr=="{}")
+#     sf.empty_response
+#   else
+#     scenario = 2
+#     sf.go_third_scenario(query)
+#   end
 
 end
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
