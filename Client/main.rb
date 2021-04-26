@@ -73,7 +73,7 @@ sf.buttonC.signal_connect("clicked") {
   com.sendQuery(sf.uid_logged, sf.input_box.text)
 }
 
-comms.signal_connect('queryResponse') do |sender, query|
+com.signal_connect('queryResponse') do |sender, query|
   querystr = query.to_s
   puts "Feedback: " + querystr
   if (querystr == "{}")
