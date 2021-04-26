@@ -1,7 +1,6 @@
 require "net/http"
 require "json"
 require "gtk3"
-@server_url = "http://138.68.152.226:3000"
 
 class AsyncComm < GLib::Object
   type_register
@@ -16,9 +15,9 @@ class AsyncComm < GLib::Object
   def sendQuery(uid, query)
     GLib::Idle.add do
       if query.include? '?'
-        uri = URI("#{@server_url}/#{query}&uid=#{uid}")
+        uri = URI("http://138.68.152.226:3000/#{query}&uid=#{uid}")
       else
-        uri = URI("#{@server_url}/#{query}?uid=#{uid}")
+        uri = URI("http://138.68.152.226:3000/#{query}?uid=#{uid}")
       end
       res = JSON.parse(Net::HTTP.get(uri))
       signal_emit('queryResponse', res)
@@ -54,7 +53,6 @@ if __FILE__ == $0
   comms.signal_connect('queryResponse') do |sender, res|
     puts res
   end
-
 
   Gtk.main
 end
