@@ -18,7 +18,7 @@ scenario = 0;
 #3 Escenari C (Mostra de dades rebudes per servidor. buttonA=Tornar escenari B buttonB=logout
 
 
-comms = AsyncComm.new()
+comms = AsyncComm.new
 sf = Set_Finestra.new()
 #reader_hardware allows to choose nfc reader, info in RfidReader.rb
 # Implemented: emulator: reads a tag from keyboard, PN532: PN532 reader
