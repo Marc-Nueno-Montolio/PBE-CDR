@@ -21,7 +21,7 @@ com = AsyncComm.new
 sf = Set_Finestra.new()
 #reader_hardware allows to choose nfc reader, info in RfidReader.rb
 # Implemented: emulator: reads a tag from keyboard, PN532: PN532 reader
-reader = RfidReader.new('PN532')
+reader = RfidReader.new("emulator")
 
 sf.go_first_escenario
 sf.finestra.show_all
@@ -84,11 +84,14 @@ sf.buttonC.signal_connect("clicked") {
 com.signal_connect('queryResponse') do |sender, query|
   querystr = query.to_s
   puts "Feedback: " + querystr
-  if (querystr == "{}")
-    sf.empty_response
-  else
-    scenario = 2
-    sf.go_third_scenario(query)
+  if(scenario==2)
+    if (querystr == "{}")
+      sf.empty_response
+    else
+      puts "Go Third Scenario"
+      scenario = 3
+      sf.go_third_scenario(query)
+    end
   end
 end
 

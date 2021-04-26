@@ -127,9 +127,73 @@ class Set_Finestra
 
 	def go_third_scenario(hash_rcv)
 		puts "Not-empty hash received" #DEBUG
+		clean_grid
+
+		@graella.set_column_homogeneous(true)
+		@graella.set_row_homogeneous(true)
+		results_list = get_new_list(hash_rcv[0].keys.length)
+		keys_of_table =  hash_rcv[0].keys #Obtenim títols dels camps del hash de la primera posició.
+
+		#Creem totes les files amb la informació.
+		i = 0
+		while i < hash_rcv.length
+			iter = results_list.append #Crea i retorna fila (objecte Treelter) afegida, s'afegeix a última posició.
+			j = 0
+			while j < keys_of_table.length 
+				iter.set_value(j,hash_rcv[i].values_at(keys_of_table[j]).to_s)
+				j += 1
+			end
+				i += 1
+		end
+
+		treeview = Gtk::TreeView.new(results_list)
+		puts "3"
+		i = 0
+		while i < keys_of_table.length
+			rndr = Gtk::CellRendererText.new()
+			columna = Gtk::TreeViewColumn.new(keys_of_table[i], rndr,:text=>i)
+			treeview.append_column(columna)
+			i +=1
+		end
+		puts "4"
+
+		#Bloc scrollwindow
+
+		scr_treelist = Gtk::ScrolledWindow.new()
+		scr_treelist.set_vexpand(true)
+		
+
+		puts "5"
+
+		#Afegim a graella
+
+		@graella.attach(scr_treelist,0,0,8,10)
+		scr_treelist.add(treeview)
+		@finestra.show_all
+
+		#C
+		#puts hash_rcv.length
 		#Not implemented yet.
 	end
 			
+	def true_generator
+		return true
+	end
+
+	def get_new_list(columns)
+		case columns
+			when 3
+				puts "creating 3 column list"
+				return Gtk::ListStore.new(String,String,String)
+			when 4
+				puts "creating 4 column list"
+				return Gtk::ListStore.new(String,String,String,String)
+			else
+				puts "FATAL ERROR: Unexpected quantity of hashes (" + columns + ")"
+				Gtk.main_quit
+		end
+	end
+		
 	def clean_grid
 		i=0
 		while i<51 do
