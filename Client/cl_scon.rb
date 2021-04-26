@@ -5,7 +5,7 @@ require 'gtk3'
 @server_url = "http://138.68.152.226:3000"
 #retorna el resulat del query
 def get_query(query,uid)
-    uri = URI("http://138.68.152.226:3000/#{query}'uid=#{uid}")
+    uri = URI("http://138.68.152.226:3000/#{query}?uid=#{uid}")
     return JSON.parse(Net::HTTP.get(uri))
 end
 # Retorna el resultat del query
