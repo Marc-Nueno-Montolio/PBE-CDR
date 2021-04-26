@@ -2,6 +2,7 @@ require "gtk3"
 require 'json'
 require_relative 'window.rb'
 require_relative 'cl_scon.rb'
+require_relative 'async_comm'
 require_relative 'RfidReader'
 
 #require_relative 'fake_signal_gen.rb' #Dummy dev class
@@ -16,6 +17,8 @@ scenario = 0;
 #2 Escenari B (Introducció dades per enviar a servidor. Si rep error, es mostrarà en aquest mateix estat. buttonA=enviar buttonB=logout
 #3 Escenari C (Mostra de dades rebudes per servidor. buttonA=Tornar escenari B buttonB=logout
 
+
+comms = AsyncComm.new()
 sf = Set_Finestra.new()
 #reader_hardware allows to choose nfc reader, info in RfidReader.rb
 # Implemented: emulator: reads a tag from keyboard, PN532: PN532 reader
@@ -70,7 +73,10 @@ sf.buttonB.signal_connect("clicked"){
 
 sf.buttonC.signal_connect("clicked"){
   puts "Sending query: " + sf.input_box.text   #DEBUG
-  query = get_query(sf.input_box.text,sf.uid_logged)
+  comms.sendQuery(sf.uid_logged, sf.input_box.text)
+}
+
+comms.signal_connect('queryResponse') do |sender, query|
   querystr = query.to_s
   puts "Feedback: " + querystr              #DEBUG
   if(querystr=="{}")
@@ -79,7 +85,8 @@ sf.buttonC.signal_connect("clicked"){
     scenario = 2
     sf.go_third_scenario(query)
   end
-}
+
+end
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
 Gtk.main
