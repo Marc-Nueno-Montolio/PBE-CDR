@@ -91,7 +91,6 @@ end
 #     sf.go_third_scenario(query)
 #   end
 
-end
 sf.finestra.signal_connect('destroy') { Gtk.main_quit}
 
 Gtk.main
