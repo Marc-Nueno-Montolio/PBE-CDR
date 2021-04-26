@@ -104,7 +104,7 @@ com.signal_connect('queryResponse') do |sender, query|
   end
 end
 
-sf.finestra.signal_connect('destroy') { Gtk.main_quit }
+sf.finestra.signal_connect("destroy") { Gtk.main_quit }
 
 Gtk.main
 
