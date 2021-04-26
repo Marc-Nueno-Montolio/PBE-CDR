@@ -15,10 +15,10 @@ class AsyncComm < GLib::Object
 
   def sendQuery(uid, query)
     GLib::Idle.add do
-      if query.include? '?'
-        @server_url + "#{query}&uid=" + uid
+      if query.include? "?"
+        query = @server_url + "#{query}&uid=" + uid
       else
-        @server_url + "#{query}?uid=" + uid
+        query = @server_url + "#{query}?uid=" + uid
       end
       uri = URI(query)
       res = JSON.parse(Net::HTTP.get(uri))
