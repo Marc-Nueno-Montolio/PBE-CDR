@@ -32,7 +32,7 @@ reader.signal_connect("tag") do |sender, uid|
   end
 end
 
-com.signal_connect('studentResponse') do |sender, uid, name|
+com.signal_connect('studentResponse') do |sender, name, uid|
   @nom = name
   @uid_del_nom = uid
   if (@nom == nil && @uid_del_nom == nil)
