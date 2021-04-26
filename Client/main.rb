@@ -22,7 +22,7 @@ comms = AsyncComm.new()
 sf = Set_Finestra.new()
 #reader_hardware allows to choose nfc reader, info in RfidReader.rb
 # Implemented: emulator: reads a tag from keyboard, PN532: PN532 reader
-reader = RfidReader.new('emulator')
+reader = RfidReader.new('PN532')
 
 sf.go_first_escenario
 sf.finestra.show_all
