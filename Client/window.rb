@@ -166,6 +166,7 @@ class Set_Finestra
 
 	def get_login_label #Retorna objecte etiqueta
 		label = Gtk::Label.new("")
+		label.set_name('mainlabel')
 		label.set_size_request(@res_ample - @marge, @res_altura - @marge)
 		return label
 	end

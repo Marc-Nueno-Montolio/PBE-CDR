@@ -1,4 +1,4 @@
-label{
+#mainlabel{
     font-size: 20px;
     background-color: purple;
     color: white;
@@ -6,3 +6,7 @@ label{
     margin: 10px;
     border-radius: 10px;
 }
+
+/*
+https://stackoverflow.com/questions/16740949/gtk-cssprovider-how-do-id-based-selectors-work-in-gtk3
+ */
