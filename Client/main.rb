@@ -28,18 +28,25 @@ sf.finestra.show_all
 #GESTIÓ SENYALS
 reader.signal_connect("tag") do |sender, uid|
   if (scenario == 0)
-    @nom, @uid_del_nom = get_user(uid)
-    if (@nom == nil && @uid_del_nom == nil)
-      scenario = 1
-      sf.login_fail(uid)
-
-    else
-      puts "Valid UID Inserted. Changing to scenario 2A" #debugging
-      scenario = 2
-      sf.go_second_scenario(@nom, @uid_del_nom)
-    end
+    com.get_student(uid)
   end
 end
+
+com.signal_connect('studentResponse') do |sender, uid, name|
+  @nom = name
+  @uid_del_nom = uid
+  if (@nom == nil && @uid_del_nom == nil)
+    scenario = 1
+    sf.login_fail(uid)
+  else
+    puts "Valid UID Inserted. Changing to scenario 2A" #debugging
+    scenario = 2
+    sf.go_second_scenario(@nom, @uid_del_nom)
+  end
+
+end
+
+
 
 sf.buttonA.signal_connect("clicked") {
   case scenario
