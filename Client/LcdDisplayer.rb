@@ -1,32 +1,39 @@
 require "i2c/drivers/ss1602"
+require "gtk3"
 
-class LcdDisplayer
+class LcdDisplayer < GLib::Object
 
 #creating LCD class for our 20x4 LCD
 
     def initialize
+        super()
         @lcd = I2C::Drivers::SS1602::Display.new("/dev/i2c-1", 0x27)
         @m = @lcd.rows()  #number of rows of the display that has been set up on the display.rb file
         @n = []   #array
     end
 
     def first_stage
-        @lcd.clear()
-        @lcd.text(" Please login with",1)
-        @lcd.text("your university card", 2)
+        GLib::Idle.add do
+            @lcd.clear()
+            @lcd.text(" Please login with",1)
+            @lcd.text("your university card", 2)
+        end
     end
 
     def login (user)
-        @lcd.clear()
-        @lcd.text("Welcome user: ", 1)
-        @lcd.text(user, 2)
+        GLib::Idle.add do
+            @lcd.clear()
+            @lcd.text("Welcome user: ", 1)
+            @lcd.text(user, 2)
+        end
     end
 
     def error_login
-        @lcd.clear()
-        @lcd.text("Error. User not found", 1)
-        @lcd.text("Please try again!", 2)
-
+        GLib::Idle.add do
+            @lcd.clear()
+            @lcd.text("Error. User not found", 1)
+            @lcd.text("Please try again!", 2)
+        end
     end
 
     def lect_teclat

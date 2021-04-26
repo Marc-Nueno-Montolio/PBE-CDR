@@ -7,6 +7,21 @@
     border-radius: 10px;
 }
 
-/*
+#sendbutton {
+    font-size: 20px;
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+#sendbutton:hover{
+    background-color: rgb(153, 206, 47);
+}
+/*{background-color: white;}
+hover {background-color: rgb(153, 206, 47);}
+active {background-color: rgb(219, 95, 95);}
+
 https://stackoverflow.com/questions/16740949/gtk-cssprovider-how-do-id-based-selectors-work-in-gtk3
  */
