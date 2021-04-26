@@ -30,9 +30,8 @@ http.createServer(function (req, res) {
         route(req, res);
     else {
         // si la ruta no existeix resposta per defecte.
-        res.writeHead(404, {'Content-Type': 'text/html'});
-        res.write('Vaja... la ruta no existeix... Prova un dels 100 metodes diferents que et proposa el Francesc oller per solucionar aquest problema. ')
-        res.end();
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({}));
     }
 
 }).listen(port, function () {
