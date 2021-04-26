@@ -4,8 +4,11 @@ require_relative 'window.rb'
 require_relative 'async_comm'
 require_relative 'RfidReader'
 
-
+cssProvider = Gtk::CssProvider.new
+cssProvider.load_from_path('./styles.css')
+Gtk::StyleContext.add_provider_for_screen(Gdk::Screen.default, cssProvider, Gtk::StyleProvider::PRIORITY_USER)
 scenario = 0;
+
 #--NON-LOGGED SCENARIO--
 #0 Escenari A (log in, esperant lectura UID per enviar)     buttonA=null, buttonB=null
 #1 Escenari A (log fail, apareix botó per tornar a log in)  buttonA= Botó reintentar, buttonB=null
