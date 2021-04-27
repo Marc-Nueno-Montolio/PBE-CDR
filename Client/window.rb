@@ -316,7 +316,7 @@ class Set_Finestra
 	end
 
 	def get_a_input_text_box
-		input_box.set_name('inputtextbox')
+		input_box
 		return Gtk::Entry.new
 		
 	end
