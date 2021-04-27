@@ -20,7 +20,7 @@ var handler = (req,res)=>{
     }
      // Afegim el constraint gte
      if (params.get('date[gte]')) {
-        query['date'] = {$gte: parseInt(params.get('date[gte]'))}
+        query['date'] = {$gte: params.get('date[gte]')}
     }
     // Afegim constraint per buscar data exacta
     if (params.get('date')){
@@ -28,7 +28,7 @@ var handler = (req,res)=>{
     }
 
     // Enviem el query a la base de dades
-    db.sendQuery('tasks_unwinded', query, options, {_id: 0, id_students: 0}, (err, obj) => {
+    db.sendQuery('tasks_unwinded', query, options, {_id: 0,id_students: 0}, (err, obj) => {
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(obj))
     })

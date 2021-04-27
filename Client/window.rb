@@ -333,9 +333,14 @@ class Set_Finestra
 	end
 
 	def get_a_input_text_box
+<<<<<<< HEAD
 		input_box = Gtk::Entry.new
 		input_box.set_name(@eyq_message)
 		return input_box
+=======
+		input_box
+		return Gtk::Entry.new
+>>>>>>> effdb1ab441c0a56ffed2317159e3fbcb3466a06
 		
 	end
 
