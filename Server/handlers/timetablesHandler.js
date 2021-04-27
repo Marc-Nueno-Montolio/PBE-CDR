@@ -3,7 +3,7 @@ var db = require('../dbHelper')
 
 var handler = (req,res)=>{
     var params = new URLSearchParams(url.parse(req.url).query)
-    var options = {sort: {subject: 1}};
+    var options = {sort: {_id: 1}};
     var query = {};
 
     // Afegim l'uid a la query
@@ -24,7 +24,7 @@ var handler = (req,res)=>{
     }
     // Afegim constraint de hour[gt]
     if (params.get('hour[gt]')) {
-        query['hour'] = {$gt: parseInt(params.get('hour[gt]'))}
+        query['hour'] = {$gt: (params.get('hour[gt]'))}
     }
 
     // Enviem el query a la base de dades
