@@ -119,11 +119,11 @@ class Set_Finestra
 
 	def go_second_scenario(nom_user, uid)
 		@finestra.title = "#{@titol_finestra} LOGGED"
-		label_wm = get_logged_label(nom_user, uid)
+		@label_wm = get_logged_label(nom_user, uid)
 		@uid_logged = uid
 		clean_grid
 		#@finestra.set_default_size @res_ample+100, @res_altura
-		@graella.attach(label_wm,0,0,1,1)
+		@graella.attach(@label_wm,0,0,1,1)
 		@graella.attach(gu_dummy_space,1,0,1,1)
 		@graella.attach(@buttonB,2,0,1,1)
 		@graella.attach(gu_dummy_space,0,1,1,1)
@@ -147,8 +147,8 @@ class Set_Finestra
 		puts "Not-empty hash received" #DEBUG
 		clean_grid
 
-		@graella.set_column_homogeneous(true)
-		@graella.set_row_homogeneous(true)
+		#@graella.set_column_homogeneous(true)
+		#@graella.set_row_homogeneous(true)
 		results_list = get_new_list(hash_rcv[0].keys.length)
 		keys_of_table =  hash_rcv[0].keys #Obtenim títols dels camps del hash de la primera posició.
 
@@ -181,17 +181,49 @@ class Set_Finestra
 
 		#Afegim a graella
 
-		@graella.attach(scr_treelist,0,0,5,8)
+		if(false)                                     #Primera versió.
+			@graella.attach(scr_treelist,0,0,5,8)
 
-		#Afegim botons
+			#Afegim botons
 
-		@graella.attach_next_to(@buttonB,scr_treelist,3,1,1)
-		#@graella.attach_next_to(@buttonD,scr_treelist,1,1)
-		#@graella.attach(@buttonB,0,5,1,1)
-		#@graella.attach(@buttonD,1,5,1,1)
-		scr_treelist.add(treeview)
-		@finestra.show_all
+			@graella.attach_next_to(@buttonB,scr_treelist,3,1,1)
+			#@graella.attach_next_to(@buttonD,scr_treelist,1,1)
+			#@graella.attach(@buttonB,0,5,1,1)
+			#@graella.attach(@buttonD,1,5,1,1)
+			scr_treelist.add(treeview)
+			@finestra.show_all		
+		else											#Nova versió.
+			#attach(OBJECTE, COLUMNA, FILA, WIDTH, HEIGHT) BUTTONB: LOGOUT, BUTTONC: SEND QUERY
+			#attach_next_to(OBJECTE, OBJECTE_REF, GTK.POSITIONTYPE, WIDTH, HEIGHT)
+			#Gtk.PositionType --> LEFT = 0 , RIGHT = 1, TOP = 2, BOTTOM = 3
 
+			#@graella.attach(@label_wm,0,0,1,1)
+			#@graella.attach(@input_box,0,1,1,1)
+			#@graella.attach(scr_treelist,0,2,5,8)
+			#@graella.attach(@buttonB,1,0,1,1)
+			#@graella.attach(@buttonC,1,1,1,1)
+
+			@graella.attach(scr_treelist,0,2,8,20)
+			@graella.attach_next_to(@buttonC,scr_treelist,2,1,1)
+			@graella.attach_next_to(@input_box,@buttonC,2,1,1)
+			@graella.attach_next_to(@label_wm, @input_box,2,1,1)
+			gdsref1 = gu_dummy_space
+			@graella.attach_next_to(gdsref1, @label_wm,1,1,1)
+			@graella.attach_next_to(@buttonB, gdsref1,1,1,1)
+			i = 1
+
+			#while (i<5)
+			#	@graella.attach(gu_dummy_space,i,0,1,1)
+			#	i += 1
+			#end
+			#@graella.attach(@buttonB,1,0,1,1)
+			
+			#@graella.attach_next_to(@buttonC,@input_box, 1,1,1)
+			#@graella.attach_next_to(scr_treelist,@input_box,3,1,1)
+			scr_treelist.add(treeview)
+			@finestra.show_all
+			
+		end
 		#C
 		#puts hash_rcv.length
 		#Not implemented yet.
@@ -215,8 +247,9 @@ class Set_Finestra
 				puts "creating 4 column list"
 				return Gtk::ListStore.new(String,String,String,String)
 			else
-				puts "FATAL ERROR: Unexpected quantity of hashes (" + columns + ")"
+				puts "FATAL ERROR: Unexpected quantity of hashes (" + columns.to_s + ")"
 				Gtk.main_quit
+				return nil
 		end
 	end
 		
