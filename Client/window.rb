@@ -321,7 +321,6 @@ class Set_Finestra
 	end
 
 	def login_label_fail_status(uid)
-		label.set_name('labelfailstatus')
 		#@label_log.override_background_color(0, Gdk::RGBA::new(1,0,0,1))      #VERMELL
 		@label_log.text = "#{@missatge_error_1} #{uid} #{@missatge_error_2}" 
 	end
