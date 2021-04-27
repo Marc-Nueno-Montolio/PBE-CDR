@@ -32,6 +32,11 @@ class Set_Finestra
 
 		@saq_button_message = "Send other query"
 
+		
+		#Gestor canvi objecte finestre per recollir sempre botó de sortida
+		@first_time = true
+		@wsb = nil			#Es crea/modifica a get_window.
+
 		#Creació objectes gràfics permanents
 		@finestra = get_window
 		@graella = get_grid
@@ -44,6 +49,8 @@ class Set_Finestra
 		@no_matches_label = get_no_matches_label
 		@input_box = get_a_input_text_box
 		@finestra.add(@graella)
+
+		
 
 		#UID logged
 		@uid_logged = nil
@@ -79,6 +86,10 @@ class Set_Finestra
 
 	def uid_logged
 		return @uid_logged
+	end
+
+	def get_wsb
+		return @wsb
 	end
 
 	#Primer escenari
@@ -228,6 +239,12 @@ class Set_Finestra
 		window.set_window_position(:center)
 		#window.title = @titol_finestra
 		#window.set_default_size @res_ample, @res_altura
+		if(@first_time)
+			@wsb = Window_Signal_Bridge.new(window)
+			@fist_time = false
+		else
+			@wsb.set_window(window)
+		end
 		return window
 	end
 
@@ -316,11 +333,43 @@ class Set_Finestra
 	end
 
 	def get_a_input_text_box
-		input_box.set_name('inputtextbox')
-		return Gtk::Entry.new
+		input_box = Gtk::Entry.new
+		input_box.set_name(@eyq_message)
+		return input_box
 		
 	end
 
 end
 
+class Window_Signal_Bridge < GLib::Object
+    type_register
+    define_signal("destroy_from_wsb", GLib::Signal::RUN_FIRST, nil, nil)
+
+
+    def initialize(window)
+		super()
+		@window = window
+		@thr = Thread.new{
+			#while(1)
+				@window.signal_connect("destroy"){
+					#signal_emit("destroy_from_wsb")
+					Gtk.main_quit
+				}
+			#end
+		}
+    end
+
+	def set_window(window)
+		Thread.kill(@thr)
+		@window = window
+		@thr = Thread.new{
+			#while(1)
+				@window.signal_connect("destroy"){
+					#signal_emit("destroy_from_wsb")
+					Gtk.main_quit
+				}
+			#end
+		}
+	end
+end
 
