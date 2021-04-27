@@ -16,14 +16,28 @@
 }
 
 #sendanotherquerybutton{
-    background-color: rgb(65, 148, 86);
+    color: rgb(43, 158, 72);
 }
 #logfailedbutton{
     background-color: rgb(87, 86, 87);
+    color: white;
+}
+#logfailedbutton:hover{
+    background-color: rgb(153, 206, 47);
+}
+#logfailedbutton:active{
+    background-color: rgb(204, 129, 31);
 }
 
 #logout_button{
     background-color: rgb(87, 86, 87);
+    color: white;
+}
+#logout_button:hover{
+    background-color: rgb(153, 206, 47);
+}
+#logout_button:active{
+    background-color: rgb(204, 129, 31);
 }
 
 #sendbutton {
