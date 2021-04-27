@@ -247,9 +247,13 @@ class Set_Finestra
 		return Gtk::Grid.new
 	end
 
-	def reestablish_grid
+	def reset_gw
+		clean_grid
+		@finestra.unrealize
+		@finestra = get_window
 		@graella = get_grid
 		@finestra.add(@graella)
+		#reset_all_graph_resources
 	end
 
 	def get_login_label #Retorna objecte etiqueta
@@ -311,6 +315,7 @@ class Set_Finestra
 	def get_a_input_text_box
 		return Gtk::Entry.new
 	end
+
 end
 
 

@@ -78,7 +78,7 @@ sf.buttonB.signal_connect("clicked") {
     sf.go_first_escenario
   when 3
     scenario = 0
-    sf.reestablish_grid
+    sf.reset_gw
     sf.go_first_escenario
   else
     Gtk.main_quit #No hauria d'entrar mai aquí. FATAL ERROR
@@ -92,7 +92,7 @@ sf.buttonC.signal_connect("clicked") {
 
 com.signal_connect('queryResponse') do |sender, query|
   querystr = query.to_s
-  puts "Feedback: " + querystr
+  #puts "Feedback: " + querystr
   if(scenario==2)
     if (querystr == "{}")
       sf.empty_response
