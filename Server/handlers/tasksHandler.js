@@ -24,11 +24,11 @@ var handler = (req,res)=>{
     }
     // Afegim constraint per buscar data exacta
     if (params.get('date')){
-        query['date'] = params.get('date')
+        query['date'] = Date(params.get('date'))
     }
 
     // Enviem el query a la base de dades
-    db.sendQuery('tasks_unwinded', query, options, {_id: 0,id_students: 0}, (err, obj) => {
+    db.sendQuery('tasks_unwinded', query, options, {_id: 0,date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },id_students: 0}, (err, obj) => {
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(obj))
     })
