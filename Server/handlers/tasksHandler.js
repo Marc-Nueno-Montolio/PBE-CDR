@@ -24,7 +24,7 @@ var handler = (req,res)=>{
     }
     // Afegim constraint per buscar data exacta
     if (params.get('date')){
-        query['date'] = params.get('date')
+        query['date'] = params.get('date').toString
     }
 
     // Enviem el query a la base de dades
