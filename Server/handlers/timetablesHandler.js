@@ -24,7 +24,7 @@ var handler = (req,res)=>{
     }
     // Afegim constraint de hour[gt]
     if (params.get('hour[gt]')) {
-        query['hour'] = {$gt: (params.get('hour[gt]'))}
+        query['hour'] = {$gt: parseInt(params.get('hour[gt]'))}
     }
 
     // Enviem el query a la base de dades
