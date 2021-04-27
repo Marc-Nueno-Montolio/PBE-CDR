@@ -299,8 +299,9 @@ class Set_Finestra
 	end
 
 	def get_logged_label(nom, uid_nom)
+		label = Gtk::Label.new(welcome_message(nom,uid_nom))
 		label.set_name('loggedlabel')
-		return Gtk::Label.new(welcome_message(nom,uid_nom))
+		return label
 	end
 
 	def get_eyq_label
