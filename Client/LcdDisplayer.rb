@@ -1,7 +1,7 @@
 require "i2c/drivers/ss1602"
 require "gtk3"
 
-class LcdDisplayer < GLib::Object
+class LcdDisplayer 
 
 #creating LCD class for our 20x4 LCD
 
@@ -13,27 +13,27 @@ class LcdDisplayer < GLib::Object
     end
 
     def first_stage
-        GLib::Idle.add do
+        
             @lcd.clear()
-            @lcd.text(" Please login with",1)
+            @lcd.text("Please, login with",1)
             @lcd.text("your university card", 2)
-        end
+        
     end
 
-    def login (user)
-        GLib::Idle.add do
+    def login(user)
+        
             @lcd.clear()
             @lcd.text("Welcome user: ", 1)
             @lcd.text(user, 2)
-        end
+        
     end
 
     def error_login
-        GLib::Idle.add do
+        
             @lcd.clear()
-            @lcd.text("Error. User not found", 1)
+            @lcd.text("Error.User not found", 1)
             @lcd.text("Please try again!", 2)
-        end
+        
     end
 
     def lect_teclat
