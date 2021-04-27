@@ -11,13 +11,12 @@
 }
 
 #loggedlabel{
-    background-color: rgb(65, 148, 86);
-    color: black;
+    color: rgb(33, 107, 51);
 }
 
-
 #sendanotherquerybutton{
-    color: rgb(43, 158, 72);
+    background-color: rgb(87, 86, 87);
+    color: white;
 }
 #sendanotherquerybutton:hover{
     background-color: rgb(153, 206, 47);
