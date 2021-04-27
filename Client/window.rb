@@ -326,8 +326,8 @@ class Set_Finestra
 	end
 
 	def get_logged_label(nom, uid_nom)
-		return Gtk::Label.new(welcome_message(nom,uid_nom))
 		label.set_name('loggedlabel')
+		return Gtk::Label.new(welcome_message(nom,uid_nom))
 	end
 
 	def get_eyq_label
@@ -350,9 +350,9 @@ class Set_Finestra
 		return button
 	end
 
-	def get_send_another_query_button 
+	def get_send_another_query_button
+		button.set_name('sendanotherquerybutton') 
 		return Gtk::Button.new(:label => @saq_button_message)
-		button.set_name('sendanotherquerybutton')
 	end
 
 	def get_send_button
