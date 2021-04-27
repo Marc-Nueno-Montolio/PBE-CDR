@@ -5,8 +5,8 @@ class Set_Finestra
 	def initialize
 		#Paràmetres de configuració de finestra:
 		@titol_finestra = "Lector RFID - "
-		@res_ample = 400
-		@res_altura = 125
+		@res_ample = 800
+		@res_altura = 550
 		@marge = 21
 
 		#Paràmetres primer escenari (login)
