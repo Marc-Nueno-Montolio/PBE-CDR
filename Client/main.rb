@@ -3,6 +3,7 @@ require 'json'
 require_relative 'window.rb'
 require_relative 'async_comm'
 require_relative 'RfidReader'
+require_relative 'timer'
 #require_relative 'LcdDisplayer'
 
 cssProvider = Gtk::CssProvider.new
@@ -27,6 +28,8 @@ reader = RfidReader.new("emulator")
 
 sf.go_first_escenario
 sf.finestra.show_all
+
+timer = Timer.new(100)
 #@lcd.first_stage
 
 #GESTIÓ SENYALS
@@ -48,12 +51,18 @@ com.signal_connect('studentResponse') do |sender, name, uid|
     puts "Valid UID Inserted. Changing to scenario 2A" #debugging
     scenario = 2
     sf.go_second_scenario(@nom, @uid_del_nom)
+    timer.start
     #@lcd.login(@nom)
   end
 
 end
 
-
+timer.signal_connect('timeout'){
+  if(scenario==2)
+    scenario = 0
+    sf.go_first_escenario
+  end
+}
 
 sf.buttonA.signal_connect("clicked") {
   case scenario
@@ -98,8 +107,10 @@ com.signal_connect('queryResponse') do |sender, query|
   querystr = query.to_s
   #puts "Feedback: " + querystr
   if(scenario==2)
+    timer.stop
     if (querystr == "{}")
       sf.empty_response
+      timer.start
     else
       puts "Go Third Scenario"
       scenario = 3
