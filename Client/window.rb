@@ -139,10 +139,16 @@ class Set_Finestra
 	end
 
 
-	def empty_response
+	def empty_response(scenario)
+		i = nil
+		if(scenario==2)
+			i = 0
+		else
+			i = 1
+		end
 		puts "empty_response" #DEBUG
 		if(@no_matches_label != @graella.get_child_at(0,4)) #Només afegim la primera vegada.
-			@graella.attach(@no_matches_label,0,4,1,1)
+			@graella.attach(@no_matches_label,i,4,1,1)
 			@finestra.show_all
 		end
 	end
@@ -186,78 +192,27 @@ class Set_Finestra
 
 		#Afegim a graella
 
-		if(false)                                     #Primera versió.
-			@graella.attach(scr_treelist,0,0,5,8)
-
-			#Afegim botons
-
-			@graella.attach_next_to(@buttonB,scr_treelist,3,1,1)
-			#@graella.attach_next_to(@buttonD,scr_treelist,1,1)
-			#@graella.attach(@buttonB,0,5,1,1)
-			#@graella.attach(@buttonD,1,5,1,1)
-			scr_treelist.add(treeview)
-			@finestra.show_all		
-		else											#Nova versió.
-			#attach(OBJECTE, COLUMNA, FILA, WIDTH, HEIGHT) BUTTONB: LOGOUT, BUTTONC: SEND QUERY
-			#attach_next_to(OBJECTE, OBJECTE_REF, GTK.POSITIONTYPE, WIDTH, HEIGHT)
-			#Gtk.PositionType --> LEFT = 0 , RIGHT = 1, TOP = 2, BOTTOM = 3
-
-			#@graella.attach(@label_wm,0,0,1,1)
-			#@graella.attach(@input_box,0,1,1,1)
-			#@graella.attach(scr_treelist,0,2,5,8)
-			#@graella.attach(@buttonB,1,0,1,1)
-			#@graella.attach(@buttonC,1,1,1,1)
-
-
-		
 		clean_grid
-		#@finestra.set_default_size @res_ample+100, @res_altura
 		@label_wm = get_logged_label(@nom_user, @uid)
 		@graella.attach(@label_wm,0,0,1,1)
 		@graella.attach(gu_dummy_space,2,0,1,1)
 		@graella.attach(@buttonB,4,0,1,1)
-			
 		@input_box = get_a_input_text_box
-		@graella.attach(@eyq_label,0,1,1,1)
-		@graella.attach(@input_box,1,1,2,1)
-		@graella.attach(gu_dummy_space,4,1,1,1)
-		
-		@graella.attach(@buttonC,4,1,1,1)
-		
-
-			@graella.attach(scr_treelist,0,4,5,15)
+			@graella.attach(@eyq_label,0,1,1,1)
+			@graella.attach(@input_box,1,1,2,1)
+			@graella.attach(gu_dummy_space,4,1,1,1)
+			@graella.attach(@buttonC,4,1,1,1)
+			#@graella.attach(scr_treelist,0,4,5,15)
+			@graella.attach(scr_treelist,0,5,5,15)
 			i = 1
-
-			#while (i<5)
-			#	@graella.attach(gu_dummy_space,i,0,1,1)
-			#	i += 1
-			#end
-			#@graella.attach(@buttonB,1,0,1,1)
-			
-			#@graella.attach_next_to(@buttonC,@input_box, 1,1,1)
-			#@graella.attach_next_to(scr_treelist,@input_box,3,1,1)
 			scr_treelist.add(treeview)
-
 			@finestra.title = "#{@titol_finestra} LOGGED"
-			
 			@finestra.show_all
-
-			
-		
-			
-		end
-		#C
-		#puts hash_rcv.length
-		#Not implemented yet.
 	end
 			
 	def string_cleaner(str)
 		char_arr = str.chars
 		return char_arr[2,str.length-4].join("")
-	end
-
-	def true_generator
-		return true
 	end
 
 	def get_new_list(columns)
@@ -297,12 +252,6 @@ class Set_Finestra
 			@wsb.set_window(window)
 		end
 		return window
-	end
-
-	def get_dummy_space
-		label = Gtk::Label.new("")
-		label.set_size_request(50,50)
-		return label
 	end
 
 	def gu_dummy_space
@@ -393,8 +342,8 @@ class Set_Finestra
 
 end
 
-class Window_Signal_Bridge < GLib::Object
-    type_register
+class Window_Signal_Bridge < GLib::Object    #Classe que fa de recull signal de tancament de les diverses finestres que es poden
+    type_register							 #generar durant el transcurs d'execució.
     define_signal("destroy_from_wsb", GLib::Signal::RUN_FIRST, nil, nil)
 
 

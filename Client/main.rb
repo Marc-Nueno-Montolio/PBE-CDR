@@ -111,15 +111,19 @@ com.signal_connect('queryResponse') do |sender, query|
 
   if(scenario==3)
     puts "Go Third Scenario"
+    if(querystr == "{}") 
+      sf.empty_response(scenario)
+    else
       sf.reset_gw
       
       sf.go_third_scenario(query)
+    end
   end
 
     if(scenario==2)
     #timer.stop
     if (querystr == "{}")
-      sf.empty_response
+      sf.empty_response(scenario)
       #timer.start
     else
       puts "Go Third Scenario"
@@ -130,7 +134,7 @@ com.signal_connect('queryResponse') do |sender, query|
   end
 end
 
-#sf.finestra.signal_connect("destroy") { Gtk.main_quit }
+
 wsb.signal_connect("destroy_from_wsb") { Gtk.main_quit}     #Closing button from windows managed by Windows Signal Bridge.
 
 Gtk.main
