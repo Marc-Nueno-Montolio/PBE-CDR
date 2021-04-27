@@ -304,7 +304,7 @@ class Set_Finestra
 
 	def get_login_label #Retorna objecte etiqueta
 		label = Gtk::Label.new("")
-		label.set_name('mainlabel')
+		#label.set_name('mainlabel')
 		label.set_size_request(@res_ample - @marge, @res_altura - @marge)
 		return label
 	end
@@ -326,7 +326,7 @@ class Set_Finestra
 	end
 
 	def get_logged_label(nom, uid_nom)
-		label.set_name('loggedlabel')
+		#label.set_name('loggedlabel')
 		return Gtk::Label.new(welcome_message(nom,uid_nom))
 	end
 
@@ -336,7 +336,7 @@ class Set_Finestra
 
 	def get_logfailed_button
 		button = Gtk::Button.new(:label => @mis_boto)
-		button.set_name('logfailedbutton')
+		#button.set_name('logfailedbutton')
 		return button
 	end
 
@@ -346,18 +346,18 @@ class Set_Finestra
 	
 	def get_logout_button
 		button = Gtk::Button.new(:label => @mis_logout_button)
-		button.set_name('logout_button')
+		#button.set_name('logout_button')
 		return button
 	end
 
 	def get_send_another_query_button
-		button.set_name('sendanotherquerybutton') 
+		#button.set_name('sendanotherquerybutton')
 		return Gtk::Button.new(:label => @saq_button_message)
 	end
 
 	def get_send_button
 		button = Gtk::Button.new(:label => @eyq_button_message)
-		button.set_name('sendbutton')
+		#button.set_name('sendbutton')
 		return button
 	end
 
