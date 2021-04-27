@@ -27,12 +27,13 @@ reader = RfidReader.new("emulator")
 
 sf.go_first_escenario
 sf.finestra.show_all
+#@lcd.first_stage
 
 #GESTIÓ SENYALS
 reader.signal_connect("tag") do |sender, uid|
   if (scenario == 0)
     com.get_student(uid)
-    #@lcd.first_stage
+    
   end
 end
 
@@ -60,6 +61,7 @@ sf.buttonA.signal_connect("clicked") {
     puts "buttonA catched. Changing to scenario 0A" #debugging
     scenario = 0
     sf.go_first_escenario
+    #@lcd.first_stage
   when 2
     #Enviar string a funció de contacte amb servidor. No implementat encara.
   when 3
@@ -76,10 +78,12 @@ sf.buttonB.signal_connect("clicked") {
     #Caldria enviar ordre a funció de contacte amb servidor de logout
     scenario = 0
     sf.go_first_escenario
+    #@lcd.first_stage
   when 3
     scenario = 0
     sf.reestablish_grid
     sf.go_first_escenario
+    #@lcd.first_stage
   else
     Gtk.main_quit #No hauria d'entrar mai aquí. FATAL ERROR
   end
