@@ -5,8 +5,8 @@ class Set_Finestra
 	def initialize
 		#Paràmetres de configuració de finestra:
 		@titol_finestra = "Lector RFID - "
-		@res_ample = 800
-		@res_altura = 550
+		@res_ample = 300
+		@res_altura = 150
 		@marge = 21
 
 		#Paràmetres primer escenari (login)
@@ -144,10 +144,11 @@ class Set_Finestra
 	end
 
 	def go_third_scenario(hash_rcv)
+		@finestra.set_size_request(600,500)
 		puts "Not-empty hash received" #DEBUG
 		clean_grid
 
-		#@graella.set_column_homogeneous(true)
+		@graella.set_column_homogeneous(true)
 		#@graella.set_row_homogeneous(true)
 		results_list = get_new_list(hash_rcv[0].keys.length)
 		keys_of_table =  hash_rcv[0].keys #Obtenim títols dels camps del hash de la primera posició.
@@ -203,13 +204,23 @@ class Set_Finestra
 			#@graella.attach(@buttonB,1,0,1,1)
 			#@graella.attach(@buttonC,1,1,1,1)
 
-			@graella.attach(scr_treelist,0,2,8,20)
-			@graella.attach_next_to(@buttonC,scr_treelist,2,1,1)
-			@graella.attach_next_to(@input_box,@buttonC,2,1,1)
-			@graella.attach_next_to(@label_wm, @input_box,2,1,1)
-			gdsref1 = gu_dummy_space
-			@graella.attach_next_to(gdsref1, @label_wm,1,1,1)
-			@graella.attach_next_to(@buttonB, gdsref1,1,1,1)
+
+		
+		clean_grid
+		#@finestra.set_default_size @res_ample+100, @res_altura
+		@graella.attach(@label_wm,0,0,1,1)
+		@graella.attach(gu_dummy_space,2,0,1,1)
+		@graella.attach(@buttonB,4,0,1,1)
+			
+		
+		@graella.attach(@eyq_label,0,1,1,1)
+		@graella.attach(@input_box,1,1,2,1)
+		@graella.attach(gu_dummy_space,4,1,1,1)
+		
+		@graella.attach(@buttonC,4,1,1,1)
+		
+
+			@graella.attach(scr_treelist,0,4,5,15)
 			i = 1
 
 			#while (i<5)
@@ -221,7 +232,13 @@ class Set_Finestra
 			#@graella.attach_next_to(@buttonC,@input_box, 1,1,1)
 			#@graella.attach_next_to(scr_treelist,@input_box,3,1,1)
 			scr_treelist.add(treeview)
+
+			@finestra.title = "#{@titol_finestra} LOGGED"
+			
 			@finestra.show_all
+
+			
+		
 			
 		end
 		#C
@@ -298,6 +315,7 @@ class Set_Finestra
 		@finestra.unrealize
 		@finestra = get_window
 		@graella = get_grid
+		
 		@finestra.add(@graella)
 		#reset_all_graph_resources
 	end
