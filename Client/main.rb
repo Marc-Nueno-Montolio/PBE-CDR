@@ -31,7 +31,7 @@ sf.go_first_escenario
 wsb = sf.get_wsb
 sf.finestra.show_all
 
-timer = Timer.new(100)
+#timer = Timer.new(100)
 #@lcd.first_stage
 
 #GESTIÓ SENYALS
@@ -53,18 +53,18 @@ com.signal_connect('studentResponse') do |sender, name, uid|
     puts "Valid UID Inserted. Changing to scenario 2A" #debugging
     scenario = 2
     sf.go_second_scenario(@nom, @uid_del_nom)
-    timer.start
+  #  timer.start
     #@lcd.login(@nom)
   end
 
 end
 
-timer.signal_connect('timeout'){
-  if(scenario==2)
-    scenario = 0
-    sf.go_first_escenario
-  end
-}
+#timer.signal_connect('timeout'){
+ # if(scenario==2)
+  #  scenario = 0
+  #  sf.go_first_escenario
+ # end
+#}
 
 sf.buttonA.signal_connect("clicked") {
   case scenario
@@ -117,10 +117,10 @@ com.signal_connect('queryResponse') do |sender, query|
   end
 
     if(scenario==2)
-    timer.stop
+    #timer.stop
     if (querystr == "{}")
       sf.empty_response
-      timer.start
+      #timer.start
     else
       puts "Go Third Scenario"
       sf.reset_gw
