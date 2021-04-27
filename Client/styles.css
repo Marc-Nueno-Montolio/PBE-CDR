@@ -6,15 +6,29 @@
     margin: 2px;
     border-radius: 10px;
 }
+#nomatcheslabel{
+    background-color: red;
+}
+
+#loggedlabel{
+    background-color: rgb(65, 148, 86);
+    color: black;
+}
+
+#sendanotherquerybutton{
+    background-color: rgb(65, 148, 86);
+}
+#logfailedbutton{
+    background-color: rgb(87, 86, 87);
+}
+
+#logout_button{
+    background-color: rgb(87, 86, 87);
+}
 
 #sendbutton {
-    font-size: 20px;
-    border-radius: 4px;
-    border: none;
     background-color: rgb(87, 86, 87);
     color: white;
-    padding: 1px;
-    margin: 1px;
 }
 
 #sendbutton:hover{

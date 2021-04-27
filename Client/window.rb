@@ -283,22 +283,23 @@ class Set_Finestra
 
 	def get_no_matches_label
 		label = Gtk::Label.new(@no_matches_message)
+		label.set_name('nomatcheslabel')
 		return label
 	end
 
 	def login_label_reading_status
 		@label_log.text = @missatge
-		#@label_log.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
-		#@label_log.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
+		@label_log.override_background_color(0, Gdk::RGBA::new(0,0,1,1)) #Fons blau
+		@label_log.override_color(0 , Gdk::RGBA::new(1.0, 1.0, 1.0, 1.0))#Lletra blanca
 	end
 
 	def login_label_fail_status(uid)
-		#@label_log.override_background_color(0, Gdk::RGBA::new(1,0,0,1))      #VERMELL
+		@label_log.override_background_color(0, Gdk::RGBA::new(1,0,0,1))      #VERMELL
 		@label_log.text = "#{@missatge_error_1} #{uid} #{@missatge_error_2}" 
 	end
 
 	def get_logged_label(nom, uid_nom)
-		#label.set_name('loggedlabel')
+		label.set_name('loggedlabel')
 		return Gtk::Label.new(welcome_message(nom,uid_nom))
 	end
 
@@ -308,7 +309,7 @@ class Set_Finestra
 
 	def get_logfailed_button
 		button = Gtk::Button.new(:label => @mis_boto)
-		#button.set_name('logfailedbutton')
+		button.set_name('logfailedbutton')
 		return button
 	end
 
@@ -318,18 +319,18 @@ class Set_Finestra
 	
 	def get_logout_button
 		button = Gtk::Button.new(:label => @mis_logout_button)
-		#button.set_name('logout_button')
+		button.set_name('logout_button')
 		return button
 	end
 
 	def get_send_another_query_button
-		#button.set_name('sendanotherquerybutton')
+		button.set_name('sendanotherquerybutton')
 		return Gtk::Button.new(:label => @saq_button_message)
 	end
 
 	def get_send_button
 		button = Gtk::Button.new(:label => @eyq_button_message)
-		#button.set_name('sendbutton')
+		button.set_name('sendbutton')
 		return button
 	end
 
