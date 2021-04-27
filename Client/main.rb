@@ -27,6 +27,8 @@ sf = Set_Finestra.new()
 reader = RfidReader.new("emulator")
 
 sf.go_first_escenario
+
+wsb = sf.get_wsb
 sf.finestra.show_all
 
 timer = Timer.new(100)
@@ -119,7 +121,8 @@ com.signal_connect('queryResponse') do |sender, query|
   end
 end
 
-sf.finestra.signal_connect("destroy") { Gtk.main_quit }
+#sf.finestra.signal_connect("destroy") { Gtk.main_quit }
+wsb.signal_connect("destroy_from_wsb") { Gtk.main_quit}     #Closing button from windows managed by Windows Signal Bridge.
 
 Gtk.main
 
