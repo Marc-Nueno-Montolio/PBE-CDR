@@ -107,14 +107,23 @@ sf.buttonC.signal_connect("clicked") {
 
 com.signal_connect('queryResponse') do |sender, query|
   querystr = query.to_s
-  #puts "Feedback: " + querystr
-  if(scenario==2)
+  puts "Feedback: " + querystr
+
+  if(scenario==3)
+    puts "Go Third Scenario"
+      sf.reset_gw
+      
+      sf.go_third_scenario(query)
+  end
+
+    if(scenario==2)
     timer.stop
     if (querystr == "{}")
       sf.empty_response
       timer.start
     else
       puts "Go Third Scenario"
+      sf.reset_gw
       scenario = 3
       sf.go_third_scenario(query)
     end

@@ -50,7 +50,8 @@ class Set_Finestra
 		@input_box = get_a_input_text_box
 		@finestra.add(@graella)
 
-		
+		@nom_user = nil
+		@uid = nil
 
 		#UID logged
 		@uid_logged = nil
@@ -118,10 +119,13 @@ class Set_Finestra
 	end
 
 	def go_second_scenario(nom_user, uid)
+		@nom_user = nom_user
+		@uid = uid
 		@finestra.title = "#{@titol_finestra} LOGGED"
 		@label_wm = get_logged_label(nom_user, uid)
 		@uid_logged = uid
 		clean_grid
+		@input_box = get_a_input_text_box
 		#@finestra.set_default_size @res_ample+100, @res_altura
 		@graella.attach(@label_wm,0,0,1,1)
 		@graella.attach(gu_dummy_space,1,0,1,1)
@@ -208,11 +212,12 @@ class Set_Finestra
 		
 		clean_grid
 		#@finestra.set_default_size @res_ample+100, @res_altura
+		@label_wm = get_logged_label(@nom_user, @uid)
 		@graella.attach(@label_wm,0,0,1,1)
 		@graella.attach(gu_dummy_space,2,0,1,1)
 		@graella.attach(@buttonB,4,0,1,1)
 			
-		
+		@input_box = get_a_input_text_box
 		@graella.attach(@eyq_label,0,1,1,1)
 		@graella.attach(@input_box,1,1,2,1)
 		@graella.attach(gu_dummy_space,4,1,1,1)

@@ -1,6 +1,6 @@
 # For development purposes, when no reader is connected.
 class ReaderEmulator
   def read_uid(reader=0)
-    return gets
+    return '6DC70D0B'
   end
 end
