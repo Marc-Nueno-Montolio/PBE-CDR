@@ -324,8 +324,9 @@ class Set_Finestra
 	end
 
 	def get_send_another_query_button
+		button = Gtk::Button.new(:label => @saq_button_message)
 		button.set_name('sendanotherquerybutton')
-		return Gtk::Button.new(:label => @saq_button_message)
+		return button
 	end
 
 	def get_send_button
