@@ -3,7 +3,7 @@ var db = require('../dbHelper')
 
 var handler = (req,res)=>{
     var params = new URLSearchParams(url.parse(req.url).query)
-    var options = {sort: {subject: 1}};
+    var options = {sort: {date: 1}};
     var query = {};
 
     // Afegim l'uid a la query
