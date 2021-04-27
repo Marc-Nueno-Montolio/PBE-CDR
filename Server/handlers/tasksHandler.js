@@ -24,7 +24,7 @@ var handler = (req,res)=>{
     }
     // Afegim constraint per buscar data exacta
     if (params.get('date')){
-        if(params.get('date')=="now"){
+        if(params.get('date')== "now"){
             query['date'] = new Date()
         }
         query['date'] = new Date(params.get('date'))
