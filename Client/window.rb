@@ -165,7 +165,7 @@ class Set_Finestra
 		end
 
 		treeview = Gtk::TreeView.new(results_list)  
-		puts "3"
+		
 		i = 0
 		while i < keys_of_table.length
 			rndr = Gtk::CellRendererText.new()
@@ -173,15 +173,11 @@ class Set_Finestra
 			treeview.append_column(columna)
 			i +=1
 		end
-		puts "4"
 
 		#Finestra que permet scroll amb ratolí
 
 		scr_treelist = Gtk::ScrolledWindow.new()
 		scr_treelist.set_vexpand(true)
-		
-
-		puts "5"
 
 		#Afegim a graella
 
