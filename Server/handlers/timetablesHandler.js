@@ -26,6 +26,10 @@ var handler = (req,res)=>{
     if (params.get('hour[gt]')) {
         query['hour'] = {$gt: params.get('hour[gt]')}
     }
+    //Afegim constraint per filtrar per hora
+    if (params.get('hour')) {
+        query['hour'] = params.get('hour')
+    }
 
     // Enviem el query a la base de dades
     db.sendQuery('timetable_unwind', query, options, {_id: 0, id_students: 0}, (err, obj) => {
