@@ -20,7 +20,7 @@ var handler = (req,res)=>{
     }
      // Afegim el constraint gte
      if (params.get('date[gte]')) {
-        if(params.get('date[gte]')='now'){
+        if(params.get('date[gte]')=='now'){
             query['date_d'] ={$gte: new Date()}
         }
         query['date_d'] = {$gte: new Date(params.get('date[gte]'))}
