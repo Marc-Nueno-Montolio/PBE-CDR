@@ -11,26 +11,49 @@
 }
 
 #loggedlabel{
-    background-color: rgb(65, 148, 86);
-    color: black;
+    color: rgb(33, 107, 51);
 }
 
 #sendanotherquerybutton{
-    background-color: rgb(65, 148, 86);
+    background-color: rgb(87, 86, 87);
+    color: white;
 }
+#sendanotherquerybutton:hover{
+    background-color: rgb(153, 206, 47);
+}
+#sendanotherquerybutton:active{
+    background-color: rgb(204, 129, 31);
+}
+
+
 #logfailedbutton{
     background-color: rgb(87, 86, 87);
+    color: white;
 }
+#logfailedbutton:hover{
+    background-color: rgb(153, 206, 47);
+}
+#logfailedbutton:active{
+    background-color: rgb(204, 129, 31);
+}
+
 
 #logout_button{
     background-color: rgb(87, 86, 87);
+    color: white;
 }
+#logout_button:hover{
+    background-color: rgb(153, 206, 47);
+}
+#logout_button:active{
+    background-color: rgb(204, 129, 31);
+}
+
 
 #sendbutton {
     background-color: rgb(87, 86, 87);
     color: white;
 }
-
 #sendbutton:hover{
     background-color: rgb(153, 206, 47);
 }
