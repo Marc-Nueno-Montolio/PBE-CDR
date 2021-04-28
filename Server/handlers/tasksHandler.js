@@ -22,8 +22,9 @@ var handler = (req,res)=>{
      if (params.get('date[gte]')) {
         if(params.get('date[gte]')=='now'){
             query['date_d'] ={$gte: new Date()}
+        }else{
+            query['date_d'] = {$gte: new Date(params.get('date[gte]'))}
         }
-        query['date_d'] = {$gte: new Date(params.get('date[gte]'))}
     }
     // Afegim constraint per buscar data exacta
     if (params.get('date')){
