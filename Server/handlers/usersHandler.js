@@ -7,6 +7,11 @@ var handler = (req, res) => {
     if (uid) {
         dbHelper.findUserByUid(uid, (err, student) => {
             if (student) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Request-Method', '*');
+                res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+                res.setHeader('Access-Control-Allow-Headers', '*');
+
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({
                     'name': student.name,
