@@ -36,20 +36,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         //logBtn.setOnClickListener(new View.OnClickListener());
-        ghostBtn.setOnClickListener(new View.OnClickListener() {
+
+        /*ghostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,DashboardActivity.class));
             }
-        });
+        });*/
 
     }
 
-    public void comprovar_login(View view){
+    public void comprovar_login(View view){           //Métode invocat per botó login o enter desde text field usr o pswd
 
     }
 
-    public void ghost_login(View view){
-
+    public void ghost_login(View view){               //Mètode invocat per botó Dashboard Activity
+        startActivity(new Intent(MainActivity.this,DashboardActivity.class));
     }
 }
