@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         if(1==1  /*No implementat encara, aqui aniria condició de que el login es invàlid*/){
             TextView tv_usr_txt = (TextView) findViewById(R.id.log_fail);
             tv_usr_txt.setVisibility(View.VISIBLE);
+        }else{
+            startActivity(new Intent(MainActivity.this,DashboardActivity.class)); //A dashboard activity!
         }
     }
 
