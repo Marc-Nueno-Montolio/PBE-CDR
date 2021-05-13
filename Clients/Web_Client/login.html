@@ -1,0 +1,31 @@
+
+<div class="row"  id="login">
+    <h2 id="welcomeTitle">Welcome to Course Manager</h2>
+    <fieldset>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Nom d'usuari:</label>
+                <input type="text" id="username" name="username" placeholder="Introdueix el teu nom d'usuari">
+            </div>
+
+            <div class="form-group">
+                <label for="uid">Contrasenya:</label>
+                <input type="text" id="uid" name="uid" placeholder="Introdueix el teu UID (Password)">
+            </div>
+
+            <div class="form-group">
+                <input  type="submit" value="Login">
+            </div>
+
+        </form>
+
+        <br>
+        <div id="loginErrors" class="" style="display: none; color:red">
+            <p>S'han trobat errors:</p>
+            <ul>
+                <li>Les dades son incorrectes</li>
+
+            </ul>
+        </div>
+    </fieldset>
+</div>
