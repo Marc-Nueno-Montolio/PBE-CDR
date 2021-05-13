@@ -18,15 +18,19 @@ public class MainActivity extends AppCompatActivity {
     //protected final EditText usrTxt = (EditText) findViewById(R.id.password);
     //protected final EditText passwordTxt = (EditText) findViewById(R.id.username);
 
+    Button logBtn;
+    EditText usrTxt;
+    EditText passwordTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        TextView tv_usr_txt = (TextView) findViewById(R.id.log_fail);
+        tv_usr_txt.setVisibility(View.INVISIBLE);
         NfcAdapter nfc_lector;
-        final Button logBtn = (Button) findViewById(R.id.login_b);               //Botó log-in
-        final EditText usrTxt = (EditText) findViewById(R.id.password);          //User text field
-        final EditText passwordTxt = (EditText) findViewById(R.id.username);     //Password text field
+        /*final Button*/ logBtn = (Button) findViewById(R.id.login_b);               //Botó log-in
+        /*final EditText*/ usrTxt = (EditText) findViewById(R.id.password);          //User text field
+        /*final EditText*/ passwordTxt = (EditText) findViewById(R.id.username);     //Password text field
 
         //DEBUG ATTRIBUTES:
         final Button ghostBtn = (Button) findViewById(R.id.button_aux);               //Botó log-in
@@ -47,7 +51,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void comprovar_login(View view){           //Métode invocat per botó login o enter desde text field usr o pswd
-
+        String usuari = usrTxt.getText().toString();
+        String password = passwordTxt.getText().toString();
+        if(1==1  /*No implementat encara, aqui aniria condició de que el login es invàlid*/){
+            TextView tv_usr_txt = (TextView) findViewById(R.id.log_fail);
+            tv_usr_txt.setVisibility(View.VISIBLE);
+        }
     }
 
     public void ghost_login(View view){               //Mètode invocat per botó Dashboard Activity
