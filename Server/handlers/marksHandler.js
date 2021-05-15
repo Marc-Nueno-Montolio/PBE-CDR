@@ -26,6 +26,13 @@ var handler = (req, res) => {
     if (params.get('mark[lt]')) {
         query['mark'] = {$lt: parseInt(params.get('mark[lt]'))}
     }
+    // Afegim constraints lte, gte
+    if (params.get('mark[gte]')) {
+        query['mark'] = {$gte: parseInt(params.get('mark[gte]'))}
+    }
+    if (params.get('mark[lte]')) {
+        query['mark'] = {$lte: parseInt(params.get('mark[lte]'))}
+    }
 
     // TODO: Constraints que tinguin a veure amb dates
 
