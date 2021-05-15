@@ -9,8 +9,4 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="log_in_failed">Log-in failed: Dades no vàlides!</string>
-    <string name="enviar_button">Enviar</string>
-    <string name="ghost_button_text">DASHBOARD_ACTIVITY</string>
-    <string name="descript_logo">Logo de la millor empresa del món</string>
 </resources>
