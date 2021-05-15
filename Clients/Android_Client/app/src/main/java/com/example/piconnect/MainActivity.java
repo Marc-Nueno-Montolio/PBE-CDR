@@ -3,13 +3,24 @@ package com.example.piconnect;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 //import org.jetbrains.annotations.NotNull;
 
@@ -23,12 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    //private Object View;
-    //protected final Button logBtn = (Button) findViewById(R.id.login_b);
-    //protected final EditText usrTxt = (EditText) findViewById(R.id.password);
-    //protected final EditText passwordTxt = (EditText) findViewById(R.id.username);
-
+    OkHttpClient client;
     Button logBtn;
     EditText usrTxt;
     EditText passwordTxt;
@@ -38,41 +44,77 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TextView tv_usr_txt = (TextView) findViewById(R.id.log_fail);
         tv_usr_txt.setVisibility(View.INVISIBLE);
+        client = new OkHttpClient();
         NfcAdapter nfc_lector;
         /*final Button*/ logBtn = (Button) findViewById(R.id.login_b);               //Botó log-in
-        /*final EditText*/ usrTxt = (EditText) findViewById(R.id.password);          //User text field
-        /*final EditText*/ passwordTxt = (EditText) findViewById(R.id.username);     //Password text field
+        /*final EditText*/ usrTxt = (EditText) findViewById(R.id.username);          //User text field
+        /*final EditText*/ passwordTxt = (EditText) findViewById(R.id.password);     //Password text field
 
         //DEBUG ATTRIBUTES:
         final Button ghostBtn = (Button) findViewById(R.id.button_aux);               //Botó log-in
-        //View vw_button = new View.OnClickListener();
-        //TextView tv_usr_txt = new TextView();
-        //TextView tv_psw_txt = new TextView();
 
 
-        //logBtn.setOnClickListener(new View.OnClickListener());
 
-        /*ghostBtn.setOnClickListener(new View.OnClickListener() {
+        ghostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,DashboardActivity.class));
+                login(v, "Marc Nueno", "A677A214");
             }
-        });*/
+        });
 
+        logBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String usuari = usrTxt.getText().toString();
+                String uid = passwordTxt.getText().toString();
+
+                String url = "http://138.68.152.226:3000/students?uid=" + uid;
+
+                // Construim un nou request
+                Request request = new Request.Builder().url(url).build();
+                System.out.println("Sending query: " + url);
+                // Fem el request
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                        try {
+                            JSONObject res = new JSONObject(response.body().string());
+                            if (res.get("uid").toString().equals(uid) && res.get("name").toString().equals(usuari)) {
+                                login(v, usuari, uid);
+                            } else {
+                                fail_login(v, usuari, uid);
+                            }
+
+                        } catch (JSONException e) {
+                            fail_login(v, usuari, uid);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        fail_login(v, usuari, uid);
+                    }
+                });
+            }
+        });
     }
 
-    public void comprovar_login(View view){           //Métode invocat per botó login o enter desde text field usr o pswd
-        String usuari = usrTxt.getText().toString();
-        String password = passwordTxt.getText().toString();
-        if(1==1  /*No implementat encara, aqui aniria condició de que el login es invàlid*/){
-            TextView tv_usr_txt = (TextView) findViewById(R.id.log_fail);
-            tv_usr_txt.setVisibility(View.VISIBLE);
-        }else{
-            startActivity(new Intent(MainActivity.this,DashboardActivity.class)); //A dashboard activity!
-        }
+    public void fail_login(View view, String usuari, String uid) {
+
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                TextView tv_usr_txt = (TextView) findViewById(R.id.log_fail);
+                tv_usr_txt.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
-    public void ghost_login(View view){               //Mètode invocat per botó Dashboard Activity
-        startActivity(new Intent(MainActivity.this,DashboardActivity.class));
+    public void login(View view, String usuari, String uid) {
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        intent.putExtra("usuari", usuari);
+        intent.putExtra("uid", uid);
+        startActivity(intent);
     }
+
+
 }

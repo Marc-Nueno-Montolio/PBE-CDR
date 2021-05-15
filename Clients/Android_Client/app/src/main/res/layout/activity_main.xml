@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="ghost_login"
     tools:context=".MainActivity">
 
     <TextView
@@ -38,7 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="#CDDC39"
-        android:onClick="comprovar_login"
         android:text="Enviar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +54,6 @@
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_user"
         android:inputType="textEmailAddress"
-        android:onClick="comprovar_login"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -74,7 +71,6 @@
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:onClick="comprovar_login"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,7 +82,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:onClick="ghost_login"
         android:text="DASHBOARD_ACTIVITY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
