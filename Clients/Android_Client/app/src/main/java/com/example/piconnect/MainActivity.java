@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
         intent.putExtra("usuari", usuari);
         intent.putExtra("uid", uid);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Evitar que es pugui tornar enrere
         startActivity(intent);
     }
 

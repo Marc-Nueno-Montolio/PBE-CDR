@@ -13,11 +13,12 @@
         android:theme="@style/Theme.PiConnect"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".DashboardActivity"></activity>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
+        <activity android:name=".DashboardActivity">
+            android:noHistory="true"
+        </activity>
+
         <activity android:name=".MainActivity">
+            android:noHistory="true"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
