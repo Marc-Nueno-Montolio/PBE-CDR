@@ -14,11 +14,11 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".DashboardActivity">
-            android:noHistory="true"
+
         </activity>
 
-        <activity android:name=".MainActivity">
-            android:noHistory="true"
+        <activity android:name=".MainActivity" android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
