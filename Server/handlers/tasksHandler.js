@@ -26,6 +26,30 @@ var handler = (req,res)=>{
             query['date_d'] = {$gte: new Date(params.get('date[gte]'))}
         }
     }
+    // Afegim el constraint lte
+    if (params.get('date[lte]')) {
+        if(params.get('date[lte]')=='now'){
+            query['date_d'] ={$lte: new Date()}
+        }else{
+            query['date_d'] = {$lte: new Date(params.get('date[lte]'))}
+        }
+    }
+    //Constraint per buscar date[gt]
+     if (params.get('date[gt]')) {
+        if(params.get('date[gt]')=='now'){
+            query['date_d'] ={$gt: new Date()}
+        }else{
+            query['date_d'] = {$gt: new Date(params.get('date[gt]'))}
+        }
+    }
+    // Afegim el constraint lt
+    if (params.get('date[lt]')) {
+        if(params.get('date[lt]')=='now'){
+            query['date_d'] ={$lt: new Date()}
+        }else{
+            query['date_d'] = {$lt: new Date(params.get('date[lt]'))}
+        }
+    }
     // Afegim constraint per buscar data exacta
     if (params.get('date')){
         query['date_d'] = new Date(params.get('date'))

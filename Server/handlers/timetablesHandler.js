@@ -26,6 +26,18 @@ var handler = (req,res)=>{
     if (params.get('hour[gt]')) {
         query['hour'] = {$gt: params.get('hour[gt]')}
     }
+    //Afegim constraint de hour[lt]
+    if (params.get('hour[lt]')) {
+        query['hour'] = {$lt: params.get('hour[lt]')}
+    }
+    //Constraint hour[gte]
+    if (params.get('hour[gte]')) {
+        query['hour'] = {$gte: params.get('hour[gte]')}
+    }
+    //Constraing hour[lte]
+    if (params.get('hour[lte]')) {
+        query['hour'] = {$lte: params.get('hour[lte]')}
+    }
     //Afegim constraint per filtrar per hora
     if (params.get('hour')) {
         query['hour'] = params.get('hour')
