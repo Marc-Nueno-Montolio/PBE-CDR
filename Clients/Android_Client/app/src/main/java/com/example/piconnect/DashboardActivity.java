@@ -22,6 +22,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     TableLayout tableLayout;
     Table table;
-
+    ArrayList<String[]> row = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,13 +126,14 @@ public class DashboardActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String res = response.body().string();
+                String  res = response.body().string();
 
                 if (!res.equals("{}")) {
                     correct_query(v, query.getText().toString().trim(), uid); //fem invisible el missatge de fail query
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
+                        tableLayout.removeAllViewsInLayout();
                         createtable(jsonRes);
                         // TODO: renderitzar taula amb les dades de jsonRes
 
@@ -153,7 +155,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public void createtable(JSONArray query) {
+    public void createtable(JSONArray query) throws JSONException {
 
         // Crear la llista de headers
 
@@ -165,9 +167,16 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         List<String> headers = new ArrayList<String>();
-        while (iter.hasNext())
+        while (iter.hasNext()) {
             headers.add(iter.next());
+        }
+        runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
+                table.addHeader(headers.toArray(new String[0]));
+           }
+        });
 
         System.out.println("HEADERS:");
         // Headers
@@ -175,23 +184,32 @@ public class DashboardActivity extends AppCompatActivity {
             String columna = headers.toArray()[i].toString();
             System.out.print(columna + "  ");
         }
-
+        String columna = "";
+        String[] str= new String[headers.toArray().length];
         // Per cada objecte accedir mitjançant el header corresponent
         //Files
         for (int i = 0; i < query.length(); i++) {
             System.out.println("");
             //Columnes
             for (int j = 0; j < headers.toArray().length; j++) {
-                try {
-                    String columna = query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
-                    // Afegir a la taula
-                    System.out.print(columna + "  ");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+                    columna = query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
+                    str[j]=columna;
+                    //System.out.print(columna + " ");
             }
+            System.out.println(str.toString());
+            row.add(str);
+
 
         }
+        //System.out.println( Arrays.toString(row.toArray()) );
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                table.addData(row);
+            }
+        });
         System.out.println();
 
     }

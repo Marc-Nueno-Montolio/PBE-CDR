@@ -30,7 +30,7 @@ public class Table {
     }
     public void addData(ArrayList<String[]>data){
         this.data = data;
-        createDataTable();
+        createDataTable(data.size());
     }
 
     private void newRow(){
@@ -39,7 +39,7 @@ public class Table {
     private void newCell(){
         txtCell = new TextView(context);
         txtCell.setGravity(Gravity.CENTER);
-        txtCell.setTextSize(25);
+        txtCell.setTextSize(18);
 
     }
 
@@ -54,14 +54,14 @@ public class Table {
         tableLayout.addView(tableRow);
 
     }
-    private void createDataTable(){
+    private void createDataTable(int lenght){
         String info;
-        for(indexR = 1; indexR<=header.length+1; indexR++){
+        for(indexR = 1; indexR<=lenght; indexR++){
             newRow();
             for(indexC = 0; indexC<header.length; indexC++){
                 newCell();
-                System.out.println("pito"+indexC);
-                System.out.println("puta"+indexR);
+                //System.out.println(indexC);
+                //System.out.println(indexR);
                 String[] row = data.get(indexR-1);
                 info=(indexC<row.length)?row[indexC]:"";
                 txtCell.setText(info);

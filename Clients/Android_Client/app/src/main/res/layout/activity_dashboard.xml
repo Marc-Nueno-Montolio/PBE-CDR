@@ -7,6 +7,32 @@
     android:layout_height="match_parent"
     tools:context=".DashboardActivity">
 
+    <LinearLayout
+        android:layout_width="411dp"
+        android:layout_height="528dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/query_fail">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">>
+
+
+                <TableLayout
+                    android:id="@+id/table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </HorizontalScrollView>
+        </ScrollView>
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/logout_button"
         android:layout_width="75dp"
@@ -102,12 +128,5 @@
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/caca" />
-
-    <TableLayout
-        android:id="@+id/table"
-        android:layout_width="409dp"
-        android:layout_height="536dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="194dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
