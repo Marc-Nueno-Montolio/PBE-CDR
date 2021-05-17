@@ -25,6 +25,9 @@ public class DashboardActivity extends AppCompatActivity {
     Button logout;
     Button snd_query;
     EditText query;
+    String uid;
+    View v;
+    TextView qry_fail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
         TextView user_logged = (TextView) findViewById(R.id.textView_user);
         query = (EditText) findViewById(R.id.enter_query);
         //Fem invisible el missatge de wrong query
-        TextView qry_fail = (TextView) findViewById(R.id.query_fail);
+        qry_fail = (TextView) findViewById(R.id.query_fail);
         qry_fail.setVisibility(View.INVISIBLE);
-        String uid = getIntent().getStringExtra("uid");
+
+        uid = getIntent().getStringExtra("uid");
 
 
         //Mostrem string usuari per pantalla amb el missatge de benvinguda
@@ -75,6 +79,7 @@ public class DashboardActivity extends AppCompatActivity {
         String querySplit[] = query.split("\\?");
         String qry = querySplit[0];
         String str = "";
+
         if (qry.equals("timetables") || qry.equals("marks") || qry.equals("tasks")) {
             if (query.contains("?")) {
                 str = "http://138.68.152.226:3000/" + query + "&uid=" + uid;
@@ -88,6 +93,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void sendQuery(OkHttpClient client, String url) {
+
         Request request = new Request.Builder().url(url).build();
         System.out.println("Sending query: " + url);
 
@@ -98,6 +104,7 @@ public class DashboardActivity extends AppCompatActivity {
                 String res = response.body().string();
 
                 if (!res.equals("{}")) {
+                    correct_query(v,query.getText().toString().trim(),uid); //fem invisible el missatge de fail query
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
@@ -106,7 +113,11 @@ public class DashboardActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+
+
                     }
+                }else{
+                    fail_query(v,query.getText().toString().trim(),uid);
                 }
 
             }
@@ -114,9 +125,29 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println(e.toString());
+                fail_query(v,query.getText().toString().trim(),uid);
             }
         });
 
+        }
+    //Funcions per mostrar el missatge i amagar el missatge de query not found
+    public void fail_query(View view, String query, String uid) {
+
+        DashboardActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                qry_fail.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    public void correct_query(View view, String query, String uid) {
+
+        DashboardActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                qry_fail.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
-}
+
+    }
+
