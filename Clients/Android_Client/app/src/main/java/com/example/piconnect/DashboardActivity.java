@@ -21,6 +21,9 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,7 +46,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         OkHttpClient client = new OkHttpClient();
@@ -152,7 +154,47 @@ public class DashboardActivity extends AppCompatActivity {
     }
     public void createtable(JSONArray query){
 
-    }
+        // Crear la llista de headers
+
+        Iterator<String> iter = null;
+        try {
+            iter = query.getJSONObject(0).keys();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        List<String> headers = new ArrayList<String>();
+            while (iter.hasNext())
+                headers.add(iter.next());
+
+
+            System.out.println("HEADERS:");
+            // Headers
+            for(int i=0; i< headers.toArray().length; i++){
+                String columna = headers.toArray()[i].toString();
+                System.out.print(columna +"  ");
+            }
+
+            // Per cada objecte accedir mitjançant el header corresponent
+            //Files
+            for(int i=0; i<query.length(); i++){
+                System.out.println("");
+                //Columnes
+                for(int j = 0; j<headers.toArray().length; j++){
+                    try {
+                        String columna =  query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
+                        // Afegir a la taula
+                        System.out.print(columna +"  ");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+            System.out.println();
+
+        }
+
     //Funcions per mostrar el missatge i amagar el missatge de query not found
     public void fail_query(View view, String query, String uid) {
 
