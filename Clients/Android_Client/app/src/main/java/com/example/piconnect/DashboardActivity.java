@@ -130,7 +130,7 @@ public class DashboardActivity extends AppCompatActivity {
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
-
+                        createtable(jsonRes);
                         // TODO: renderitzar taula amb les dades de jsonRes
 
                     } catch (JSONException e) {
@@ -150,7 +150,9 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
+    public void createtable(JSONArray query){
 
+    }
     //Funcions per mostrar el missatge i amagar el missatge de query not found
     public void fail_query(View view, String query, String uid) {
 
