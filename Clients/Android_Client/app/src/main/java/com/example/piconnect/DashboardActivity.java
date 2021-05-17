@@ -1,7 +1,11 @@
 package com.example.piconnect;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -46,33 +51,19 @@ public class DashboardActivity extends AppCompatActivity {
         qry_fail.setVisibility(View.INVISIBLE);
 
         uid = getIntent().getStringExtra("uid");
+        String photo_url = getIntent().getStringExtra("photo_url");
 
-        image = (ImageView) findViewById(R.id.yoda);
-        image.setVisibility(View.INVISIBLE);
 
-        image2 = (ImageView) findViewById(R.id.logos);
-        image2.setVisibility(View.INVISIBLE);
+        new DownloadImageTask((ImageView) findViewById(R.id.logos)).execute(photo_url);
 
-        image3 = (ImageView) findViewById(R.id.Marina_pict);
-        image3.setVisibility(View.INVISIBLE);
+
+
         //Mostrem string usuari per pantalla amb el missatge de benvinguda
         String usuaris = getIntent().getStringExtra("usuari");
         user_logged.setText(usuaris);
-        switch(usuaris){
-            case "Marc Nueno":
-                image.setVisibility(View.VISIBLE);
-                break;
-            case "Marina Morgado":
-                image3.setVisibility(View.VISIBLE);
-                break;
-            case "Ignasi Rodriguez":
-                image2.setVisibility(View.VISIBLE);
-                break;
-            case "Nacho Moreno":
-                break;
-            case "Lucas Takanori":
-                break;
-        }
+
+
+
         //Funció que permet al botó de Logout, tornar a la Main Activity (primer escenari)
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +118,7 @@ public class DashboardActivity extends AppCompatActivity {
                 String res = response.body().string();
 
                 if (!res.equals("{}")) {
-                    correct_query(v,query.getText().toString().trim(),uid); //fem invisible el missatge de fail query
+                    correct_query(v, query.getText().toString().trim(), uid); //fem invisible el missatge de fail query
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
@@ -139,8 +130,8 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                     }
-                }else{
-                    fail_query(v,query.getText().toString().trim(),uid);
+                } else {
+                    fail_query(v, query.getText().toString().trim(), uid);
                 }
 
             }
@@ -148,11 +139,12 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println(e.toString());
-                fail_query(v,query.getText().toString().trim(),uid);
+                fail_query(v, query.getText().toString().trim(), uid);
             }
         });
 
-        }
+    }
+
     //Funcions per mostrar el missatge i amagar el missatge de query not found
     public void fail_query(View view, String query, String uid) {
 
@@ -162,6 +154,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
+
     public void correct_query(View view, String query, String uid) {
 
         DashboardActivity.this.runOnUiThread(new Runnable() {
@@ -172,5 +165,34 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
+
+}
+
+
+
+
 
