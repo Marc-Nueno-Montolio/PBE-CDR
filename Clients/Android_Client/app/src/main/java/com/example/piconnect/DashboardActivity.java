@@ -126,7 +126,7 @@ public class DashboardActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String  res = response.body().string();
+                String res = response.body().string();
 
                 if (!res.equals("{}")) {
                     correct_query(v, query.getText().toString().trim(), uid); //fem invisible el missatge de fail query
@@ -140,9 +140,9 @@ public class DashboardActivity extends AppCompatActivity {
                                 tableLayout.removeAllViews();
                             }
                         });
-
-                        createtable(jsonRes);
-                        // TODO: renderitzar taula amb les dades de jsonRes
+                        if(!jsonRes.toString().equals("[]")){
+                            createtable(jsonRes);
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -182,7 +182,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void run() {
                 table.addHeader(headers.toArray(new String[0]));
-           }
+            }
         });
 
         System.out.println("HEADERS:");
@@ -192,7 +192,7 @@ public class DashboardActivity extends AppCompatActivity {
             System.out.print(columna + "  ");
         }
         String columna = "";
-        String[] str= new String[headers.toArray().length];
+        String[] str = new String[headers.toArray().length];
         // Per cada objecte accedir mitjançant el header corresponent
         //Files
         for (int i = 0; i < query.length(); i++) {
@@ -200,12 +200,12 @@ public class DashboardActivity extends AppCompatActivity {
             //Columnes
             for (int j = 0; j < headers.toArray().length; j++) {
 
-                    columna = query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
-                    str[j]=columna;
-                    //System.out.print(columna + " ");
+                columna = query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
+                str[j] = columna;
+                System.out.print(str[j] + "  ");
             }
-            System.out.println(str.toString());
             row.add(str);
+            str = new String[headers.toArray().length];
 
         }
         //System.out.println( Arrays.toString(row.toArray()) );
