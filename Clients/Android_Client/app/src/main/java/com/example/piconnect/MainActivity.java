@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ghostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login(v, "Marc Nueno", "A677A214");
+                login(v, "Marc Nueno", "A677A214", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png");
             }
         });
 
@@ -79,8 +79,18 @@ public class MainActivity extends AppCompatActivity {
 
                         try {
                             JSONObject res = new JSONObject(response.body().string());
+                            System.out.println(res.get("uid").toString() + uid + " "  +  res.get("name").toString() + usuari);
                             if (res.get("uid").toString().equals(uid) && res.get("name").toString().equals(usuari)) {
-                                login(v, usuari, uid);
+
+                                String photo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png";
+                                if(res.has("photo_url")){
+                                    photo_url = res.get("photo_url").toString();
+                                }
+
+
+                                System.out.println("Logging in...");
+                                login(v, usuari, uid, photo_url);
+
                             } else {
                                 fail_login(v, usuari, uid);
                             }
@@ -109,10 +119,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void login(View view, String usuari, String uid) {
+    public void login(View view, String usuari, String uid, String photo_url) {
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
         intent.putExtra("usuari", usuari);
         intent.putExtra("uid", uid);
+        intent.putExtra("photo_url", photo_url);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Evitar que es pugui tornar enrere
         startActivity(intent);
     }

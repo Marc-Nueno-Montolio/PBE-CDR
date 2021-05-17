@@ -1,13 +1,15 @@
 package com.example.piconnect;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Spliterator;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,8 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
     String uid;
     View v;
     TextView qry_fail;
-    TableLayout tableLayout;
-    Table table;
+    ImageView image, image2, image3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +45,24 @@ public class DashboardActivity extends AppCompatActivity {
         Button logout = (Button) findViewById(R.id.logout_button);
         Button snd_query = (Button) findViewById(R.id.send_button);
         TextView user_logged = (TextView) findViewById(R.id.textView_user);
-        tableLayout=(TableLayout)findViewById(R.id.table);
         query = (EditText) findViewById(R.id.enter_query);
         //Fem invisible el missatge de wrong query
         qry_fail = (TextView) findViewById(R.id.query_fail);
         qry_fail.setVisibility(View.INVISIBLE);
-        table = new Table(tableLayout, getApplicationContext());
+
         uid = getIntent().getStringExtra("uid");
+        String photo_url = getIntent().getStringExtra("photo_url");
+
+
+        new DownloadImageTask((ImageView) findViewById(R.id.logos)).execute(photo_url);
+
 
 
         //Mostrem string usuari per pantalla amb el missatge de benvinguda
         String usuaris = getIntent().getStringExtra("usuari");
         user_logged.setText(usuaris);
+
+
 
         //Funció que permet al botó de Logout, tornar a la Main Activity (primer escenari)
         logout.setOnClickListener(new View.OnClickListener() {
@@ -113,21 +118,20 @@ public class DashboardActivity extends AppCompatActivity {
                 String res = response.body().string();
 
                 if (!res.equals("{}")) {
-                    correct_query(v,query.getText().toString().trim(),uid); //fem invisible el missatge de fail query
+                    correct_query(v, query.getText().toString().trim(), uid); //fem invisible el missatge de fail query
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
 
                         // TODO: renderitzar taula amb les dades de jsonRes
-                        createTable(jsonRes);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
 
 
                     }
-                }else{
-                    fail_query(v,query.getText().toString().trim(),uid);
+                } else {
+                    fail_query(v, query.getText().toString().trim(), uid);
                 }
 
             }
@@ -135,11 +139,12 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println(e.toString());
-                fail_query(v,query.getText().toString().trim(),uid);
+                fail_query(v, query.getText().toString().trim(), uid);
             }
         });
 
-        }
+    }
+
     //Funcions per mostrar el missatge i amagar el missatge de query not found
     public void fail_query(View view, String query, String uid) {
 
@@ -149,6 +154,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
+
     public void correct_query(View view, String query, String uid) {
 
         DashboardActivity.this.runOnUiThread(new Runnable() {
@@ -157,41 +163,36 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
-    public void createTable(JSONArray query){
 
-        //String query1 = "[{\"subject\":\"DSBM\",\"name\":\"Practica P1\",\"date\":\"2021-03-05\"}";
-/*
-        String[] str=
-        String[] str1 = str[0].split("\\,");
-        String[]header=new String[str1.length];
-        System.out.println(str1.length);
 
-        for(int i=0;i<str1.length;i=i+1){
-            //System.out.println(str1[i]);
-            String[] res=str1[i].split(":");
-            header[i]=res[0].replaceAll("\\W","");
-            System.out.println(header[i]);
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
 
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
         }
-        */
 
-        query
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                table.addHeader(header);
-                //table.addData(getClients());
-                table.backgroundHeader(Color.BLUE);
-                //table.backgroundData(Color.RED,Color.YELLOW);
-                //tableDynamic.lineColor(Color.GREEN);
-                //table.textColorData(Color.WHITE);
-                //table.textColorHeader(Color.MAGENTA);
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
             }
-        });
+            return mIcon11;
+        }
 
-
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 
+}
 
-    }
+
+
+
 
