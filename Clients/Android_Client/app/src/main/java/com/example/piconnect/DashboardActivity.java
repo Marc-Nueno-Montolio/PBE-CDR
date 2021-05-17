@@ -1,10 +1,13 @@
 package com.example.piconnect;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Spliterator;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,6 +34,8 @@ public class DashboardActivity extends AppCompatActivity {
     String uid;
     View v;
     TextView qry_fail;
+    TableLayout tableLayout;
+    Table table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +46,12 @@ public class DashboardActivity extends AppCompatActivity {
         Button logout = (Button) findViewById(R.id.logout_button);
         Button snd_query = (Button) findViewById(R.id.send_button);
         TextView user_logged = (TextView) findViewById(R.id.textView_user);
+        tableLayout=(TableLayout)findViewById(R.id.table);
         query = (EditText) findViewById(R.id.enter_query);
         //Fem invisible el missatge de wrong query
         qry_fail = (TextView) findViewById(R.id.query_fail);
         qry_fail.setVisibility(View.INVISIBLE);
-
+        table = new Table(tableLayout, getApplicationContext());
         uid = getIntent().getStringExtra("uid");
 
 
@@ -110,6 +119,7 @@ public class DashboardActivity extends AppCompatActivity {
                         System.out.println("RESPONSE: " + jsonRes.toString());
 
                         // TODO: renderitzar taula amb les dades de jsonRes
+                        createTable(jsonRes);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -146,6 +156,40 @@ public class DashboardActivity extends AppCompatActivity {
                 qry_fail.setVisibility(View.INVISIBLE);
             }
         });
+    }
+    public void createTable(JSONArray query){
+
+        //String query1 = "[{\"subject\":\"DSBM\",\"name\":\"Practica P1\",\"date\":\"2021-03-05\"}";
+/*
+        String[] str=
+        String[] str1 = str[0].split("\\,");
+        String[]header=new String[str1.length];
+        System.out.println(str1.length);
+
+        for(int i=0;i<str1.length;i=i+1){
+            //System.out.println(str1[i]);
+            String[] res=str1[i].split(":");
+            header[i]=res[0].replaceAll("\\W","");
+            System.out.println(header[i]);
+
+        }
+        */
+
+        query
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                table.addHeader(header);
+                //table.addData(getClients());
+                table.backgroundHeader(Color.BLUE);
+                //table.backgroundData(Color.RED,Color.YELLOW);
+                //tableDynamic.lineColor(Color.GREEN);
+                //table.textColorData(Color.WHITE);
+                //table.textColorHeader(Color.MAGENTA);
+            }
+        });
+
+
     }
 
 
