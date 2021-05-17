@@ -15,7 +15,7 @@ var handler = (req, res) => {
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({
                     'name': student.name,
-                    'uid': student.student_id
+                    'uid': student.student_id,
                     'photo_url': student.photo_url
                 }))
             } else {
