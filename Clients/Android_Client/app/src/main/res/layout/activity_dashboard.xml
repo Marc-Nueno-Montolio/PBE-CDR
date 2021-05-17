@@ -8,26 +8,30 @@
     tools:context=".DashboardActivity">
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="528dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="334dp"
+        android:layout_height="444dp"
+        android:layout_marginTop="34dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/query_fail">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/query_fail">
+
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">>
+            android:layout_height="437dp"
+            android:fillViewport="true">
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fillViewport="true">>
-
+                android:fillViewport="true">
 
                 <TableLayout
                     android:id="@+id/table"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical" />
             </HorizontalScrollView>
         </ScrollView>
 

@@ -22,7 +22,6 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -133,9 +132,10 @@ public class DashboardActivity extends AppCompatActivity {
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
-                        tableLayout.removeAllViewsInLayout();
+
+                        // Si la taula existeix, eliminarla
                         createtable(jsonRes);
-                        // TODO: renderitzar taula amb les dades de jsonRes
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -156,6 +156,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void createtable(JSONArray query) throws JSONException {
+
 
         // Crear la llista de headers
 
@@ -223,6 +224,10 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 
     public void correct_query(View view, String query, String uid) {
 
