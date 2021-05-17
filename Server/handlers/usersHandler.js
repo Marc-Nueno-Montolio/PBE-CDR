@@ -16,7 +16,8 @@ var handler = (req, res) => {
                 res.end(JSON.stringify({
                     'name': student.name,
                     'uid': student.student_id,
-                    'photo_url': student.photo_url
+                    'photo_url': student.photo_url,
+                    'ok':'ok'
                 }))
             } else {
                 // Set CORS headers
