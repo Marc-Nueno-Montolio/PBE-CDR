@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         logBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String usuari = usrTxt.getText().toString();
-                String uid = passwordTxt.getText().toString();
+                String usuari = usrTxt.getText().toString().trim();
+                String uid = passwordTxt.getText().toString().trim();
 
                 String url = "http://138.68.152.226:3000/students?uid=" + uid;
 
