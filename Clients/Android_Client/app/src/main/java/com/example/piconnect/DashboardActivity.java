@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
     String uid;
     View v;
     TextView qry_fail;
+    ImageView image, image2, image3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,32 @@ public class DashboardActivity extends AppCompatActivity {
 
         uid = getIntent().getStringExtra("uid");
 
+        image = (ImageView) findViewById(R.id.yoda);
+        image.setVisibility(View.INVISIBLE);
 
+        image2 = (ImageView) findViewById(R.id.logos);
+        image2.setVisibility(View.INVISIBLE);
+
+        image3 = (ImageView) findViewById(R.id.Marina_pict);
+        image3.setVisibility(View.INVISIBLE);
         //Mostrem string usuari per pantalla amb el missatge de benvinguda
         String usuaris = getIntent().getStringExtra("usuari");
         user_logged.setText(usuaris);
-
+        switch(usuaris){
+            case "Marc Nueno":
+                image.setVisibility(View.VISIBLE);
+                break;
+            case "Marina Morgado":
+                image3.setVisibility(View.VISIBLE);
+                break;
+            case "Ignasi Rodriguez":
+                image2.setVisibility(View.VISIBLE);
+                break;
+            case "Nacho Moreno":
+                break;
+            case "Lucas Takanori":
+                break;
+        }
         //Funció que permet al botó de Logout, tornar a la Main Activity (primer escenari)
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
