@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,8 +37,13 @@ public class DashboardActivity extends AppCompatActivity {
     TextView qry_fail;
     ImageView image, image2, image3;
 
+    TableLayout tableLayout;
+    Table table;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         OkHttpClient client = new OkHttpClient();
@@ -45,6 +51,10 @@ public class DashboardActivity extends AppCompatActivity {
         Button logout = (Button) findViewById(R.id.logout_button);
         Button snd_query = (Button) findViewById(R.id.send_button);
         TextView user_logged = (TextView) findViewById(R.id.textView_user);
+
+        tableLayout=(TableLayout)findViewById(R.id.table);
+        table = new Table(tableLayout, getApplicationContext());
+
         query = (EditText) findViewById(R.id.enter_query);
         //Fem invisible el missatge de wrong query
         qry_fail = (TextView) findViewById(R.id.query_fail);
@@ -57,11 +67,9 @@ public class DashboardActivity extends AppCompatActivity {
         new DownloadImageTask((ImageView) findViewById(R.id.logos)).execute(photo_url);
 
 
-
         //Mostrem string usuari per pantalla amb el missatge de benvinguda
         String usuaris = getIntent().getStringExtra("usuari");
         user_logged.setText(usuaris);
-
 
 
         //Funció que permet al botó de Logout, tornar a la Main Activity (primer escenari)
@@ -127,8 +135,6 @@ public class DashboardActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-
-
                     }
                 } else {
                     fail_query(v, query.getText().toString().trim(), uid);

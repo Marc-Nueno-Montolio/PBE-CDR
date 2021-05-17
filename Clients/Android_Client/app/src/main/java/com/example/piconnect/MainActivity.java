@@ -22,22 +22,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//import org.jetbrains.annotations.NotNull;
-
-//import java.io.IOException;
-
-//import okhttp3.Call;
-//import okhttp3.Callback;
-//import okhttp3.OkHttpClient;
-//import okhttp3.Request;
-//import okhttp3.Response;
-
 
 public class MainActivity extends AppCompatActivity {
     OkHttpClient client;
     Button logBtn;
     EditText usrTxt;
     EditText passwordTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +37,15 @@ public class MainActivity extends AppCompatActivity {
         tv_usr_txt.setVisibility(View.INVISIBLE);
         client = new OkHttpClient();
         NfcAdapter nfc_lector;
-        /*final Button*/ logBtn = (Button) findViewById(R.id.login_b);               //Botó log-in
-        /*final EditText*/ usrTxt = (EditText) findViewById(R.id.username);          //User text field
-        /*final EditText*/ passwordTxt = (EditText) findViewById(R.id.password);     //Password text field
+        /*final Button*/
+        logBtn = (Button) findViewById(R.id.login_b);               //Botó log-in
+        /*final EditText*/
+        usrTxt = (EditText) findViewById(R.id.username);          //User text field
+        /*final EditText*/
+        passwordTxt = (EditText) findViewById(R.id.password);     //Password text field
 
         //DEBUG ATTRIBUTES:
         final Button ghostBtn = (Button) findViewById(R.id.button_aux);               //Botó log-in
-
 
 
         ghostBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
                         try {
                             JSONObject res = new JSONObject(response.body().string());
-                            System.out.println(res.get("uid").toString() + uid + " "  +  res.get("name").toString() + usuari);
+                            System.out.println(res.get("uid").toString() + uid + " " + res.get("name").toString() + usuari);
                             if (res.get("uid").toString().equals(uid) && res.get("name").toString().equals(usuari)) {
 
                                 String photo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png";
-                                if(res.has("photo_url")){
+                                if (res.has("photo_url")) {
                                     photo_url = res.get("photo_url").toString();
                                 }
 
