@@ -22,8 +22,10 @@ public class Table {
 
     public Table(TableLayout tableLayout, Context context) {
         this.tableLayout = tableLayout;
+        this.tableLayout.removeAllViewsInLayout();
         this.context = context;
     }
+
     public void addHeader(String[]header){
         this.header = header;
         createHeader();
