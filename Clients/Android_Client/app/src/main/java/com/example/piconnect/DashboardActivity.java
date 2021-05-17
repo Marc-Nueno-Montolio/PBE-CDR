@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
         Button snd_query = (Button) findViewById(R.id.send_button);
         TextView user_logged = (TextView) findViewById(R.id.textView_user);
 
-        tableLayout=(TableLayout)findViewById(R.id.table);
+        tableLayout = (TableLayout) findViewById(R.id.table);
         table = new Table(tableLayout, getApplicationContext());
 
         query = (EditText) findViewById(R.id.enter_query);
@@ -152,7 +152,8 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
-    public void createtable(JSONArray query){
+
+    public void createtable(JSONArray query) {
 
         // Crear la llista de headers
 
@@ -164,36 +165,36 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         List<String> headers = new ArrayList<String>();
-            while (iter.hasNext())
-                headers.add(iter.next());
+        while (iter.hasNext())
+            headers.add(iter.next());
 
 
-            System.out.println("HEADERS:");
-            // Headers
-            for(int i=0; i< headers.toArray().length; i++){
-                String columna = headers.toArray()[i].toString();
-                System.out.print(columna +"  ");
-            }
+        System.out.println("HEADERS:");
+        // Headers
+        for (int i = 0; i < headers.toArray().length; i++) {
+            String columna = headers.toArray()[i].toString();
+            System.out.print(columna + "  ");
+        }
 
-            // Per cada objecte accedir mitjançant el header corresponent
-            //Files
-            for(int i=0; i<query.length(); i++){
-                System.out.println("");
-                //Columnes
-                for(int j = 0; j<headers.toArray().length; j++){
-                    try {
-                        String columna =  query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
-                        // Afegir a la taula
-                        System.out.print(columna +"  ");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        // Per cada objecte accedir mitjançant el header corresponent
+        //Files
+        for (int i = 0; i < query.length(); i++) {
+            System.out.println("");
+            //Columnes
+            for (int j = 0; j < headers.toArray().length; j++) {
+                try {
+                    String columna = query.getJSONObject(i).get(String.valueOf(headers.toArray()[j])).toString();
+                    // Afegir a la taula
+                    System.out.print(columna + "  ");
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
             }
-            System.out.println();
 
         }
+        System.out.println();
+
+    }
 
     //Funcions per mostrar el missatge i amagar el missatge de query not found
     public void fail_query(View view, String query, String uid) {
