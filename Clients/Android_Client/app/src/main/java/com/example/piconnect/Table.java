@@ -36,6 +36,8 @@ public class Table {
     private void newRow(){
         tableRow= new TableRow(context);
     }
+
+
     private void newCell(){
         txtCell = new TextView(context);
         txtCell.setGravity(Gravity.CENTER);

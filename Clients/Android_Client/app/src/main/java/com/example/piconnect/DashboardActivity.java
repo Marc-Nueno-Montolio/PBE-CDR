@@ -43,7 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     TableLayout tableLayout;
     Table table;
-    ArrayList<String[]> row = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +133,14 @@ public class DashboardActivity extends AppCompatActivity {
                     try {
                         JSONArray jsonRes = new JSONArray(res);
                         System.out.println("RESPONSE: " + jsonRes.toString());
-                        tableLayout.removeAllViewsInLayout();
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                tableLayout.removeAllViews();
+                            }
+                        });
+
                         createtable(jsonRes);
                         // TODO: renderitzar taula amb les dades de jsonRes
 
@@ -156,7 +163,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void createtable(JSONArray query) throws JSONException {
-
+        ArrayList<String[]> row = new ArrayList<>();
         // Crear la llista de headers
 
         Iterator<String> iter = null;
@@ -199,7 +206,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
             System.out.println(str.toString());
             row.add(str);
-
 
         }
         //System.out.println( Arrays.toString(row.toArray()) );
