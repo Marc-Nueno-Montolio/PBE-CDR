@@ -43,7 +43,7 @@ public class Table {
     private void newCell(){
         txtCell = new TextView(context);
         txtCell.setGravity(Gravity.CENTER);
-        txtCell.setTextSize(18);
+        txtCell.setTextSize(15);
 
     }
 
@@ -76,6 +76,7 @@ public class Table {
 
         }
     }
+    /*
     public void addItems(String[]item){
         String info;
         data.add(item);
@@ -90,6 +91,8 @@ public class Table {
         tableLayout.addView(tableRow,data.size()-1);
         reColoring();
     }
+
+     */
     public void backgroundHeader(int color){
         indexC=0;
         newRow();
@@ -100,9 +103,9 @@ public class Table {
 
         }
     }
-    public void backgroundData(int firstColor, int secondColor){
+    public void backgroundData(int firstColor, int secondColor, int size){
 
-        for(indexR = 1; indexR<=header.length+1; indexR++){
+        for(indexR = 1; indexR<=size; indexR++){
             multiColor=!multiColor;
             for(indexC = 0; indexC<header.length; indexC++){
                 txtCell=getCell(indexR,indexC);
@@ -113,8 +116,8 @@ public class Table {
         this.firstColor=firstColor;
         this.secondColor=secondColor;
     }
-    public void textColorData(int color){
-        for(indexR = 1; indexR<=header.length+1; indexR++)
+    public void textColorData(int color,int size){
+        for(indexR = 1; indexR<=size; indexR++)
             for(indexC = 0; indexC<header.length; indexC++)
                 getCell(indexR, indexC).setTextColor(color);
         this.textColor=color;
@@ -125,12 +128,12 @@ public class Table {
         while (indexC< header.length)
             getCell(0,indexC++).setTextColor(color);
     }
-    //public void lineColor(int color){
-    //    indexR=0;
-    //    while(indexR<data.size()){
-    //        getRow(indexR++).setBackgroundColor(color);
-    //    }
-    //}
+    public void lineColor(int color){
+       indexR=0;
+       while(indexR<data.size()+1){
+           getRow(indexR++).setBackgroundColor(color);
+       }
+    }
 
     public void reColoring(){
         indexC=0;

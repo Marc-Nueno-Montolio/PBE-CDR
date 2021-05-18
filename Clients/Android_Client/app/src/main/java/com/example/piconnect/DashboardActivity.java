@@ -3,6 +3,7 @@ package com.example.piconnect;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     TableLayout tableLayout;
     Table table;
+
 
 
     @Override
@@ -209,14 +211,22 @@ public class DashboardActivity extends AppCompatActivity {
 
         }
         //System.out.println( Arrays.toString(row.toArray()) );
+
+        System.out.println();
         runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
                 table.addData(row);
+                table.backgroundHeader(Color.rgb(33,193,237));
+                table.textColorHeader(Color.rgb(3,7,89));
+                table.backgroundData(Color.rgb(237,105,52),Color.rgb(237,207,33), row.size());
+                table.textColorData(Color.BLACK,row.size());
+                table.lineColor(Color.GRAY);
+
             }
         });
-        System.out.println();
+
 
     }
 
