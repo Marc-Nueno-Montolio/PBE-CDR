@@ -97,6 +97,13 @@ function showDashboard(uid, name) {
 function sendQuery(query, uid) {
     const XHR = new XMLHttpRequest();
 
+    if(!(query.includes('tasks') || query.includes('timetables') || query.includes('marks'))){
+        document.getElementById('query_err').style.display = 'block'
+    }else{
+        document.getElementById('query_err').style.display = 'none'
+    }
+    console.log(query)
+
     let str = ""
     if (query.includes('?')) {
         str = "http://138.68.152.226:3000/" + query + "&uid=" + uid
@@ -108,7 +115,9 @@ function sendQuery(query, uid) {
         if (this.status === 200 && this.response != "ERROR") {
             let data = JSON.parse(this.response)
 
+
             document.getElementById('queryTable').innerText = str
+
             renderTable(data)
 
 
@@ -123,6 +132,7 @@ function sendQuery(query, uid) {
 }
 
 function renderTable(data) {
+    console.log(data)
 
     let keys = [];
     for (let k in data[0]) keys.push(k);
